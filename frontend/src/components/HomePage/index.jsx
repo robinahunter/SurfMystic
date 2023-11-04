@@ -5,8 +5,6 @@ export default function HomePage(arrayData) {
         <>
             <div className='h-[80vh] mx-auto text-center'>
                 <h1 className='mx-auto mt-o mb-2'>Surf + Mystic</h1>
-                {/* Photo by Tyler Nix, Unsplash */}
-                <img src="/src/assets/tyler-nix-unsplash-banner.jpg" className="mx-auto max-w-6xl w-[80vw] rounded-lg" alt="tyler-nix-unsplash" />
 
             <Card
                 arrays={arrayData.arrays}
