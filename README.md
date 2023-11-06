@@ -107,3 +107,19 @@ By meeting these user story requirements, the surf forecast website will help me
 
 This projects stretch goals, I intend to integrate the Windy API or a similar service to provide access to weather cameras, where available, directly on the site. Users will also be able to add personal notes about their favorite locations within their profiles. The website will be built with the use of Tailwind CSS for styling and a polished user interface.
 
+## Resources Used For This Project
+
+Build A React JS Weather App - OpenWeatherMap API - Tutorial Code Commerce
+https://www.youtube.com/watch?v=UjeXpct3p7M
+
+ChatGBT
+
+NavBar toggle for reasponsive design Tailwind Docs: 
+https://www.material-tailwind.com/docs/react/navbar
+
+Open Weather Map API
+https://openweathermap.org/
+
+NOAA National Weather Service API
+https://www.weather.gov/documentation/services-web-api
+

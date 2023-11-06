@@ -1,10 +1,8 @@
-
 // ---------------------------------------------------------------------------------------
 // All routes on this page are prefixed with `localhost:3000/api/users`
 // ---------------------------------------------------------------------------------------
 
 // Required modules
-
 const jwt = require('jwt-simple')
 const express = require('express')
 // Router allows us to handle routing outisde of server.js
@@ -13,12 +11,10 @@ const router = express.Router()
 
 
 // Require the db connection and models
-
 const db = require('../models')
 
 
 // Require the JWT config
-
 const config = require('../../jwt.config.js')
 
 

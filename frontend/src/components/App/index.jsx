@@ -1,7 +1,7 @@
-// Cite source for NavBar toggle: https://www.material-tailwind.com/docs/react/navbar
 import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from "react-router-dom";
-import blueWave from "../../assets/bluewave.png";
+import axios from 'axios'
+import { Routes, Route, Link } from 'react-router-dom'
+import blueWave from '../../assets/bluewave.png'
 import HomePage from '../HomePage'
 import UserPage from '../UserPage'
 import AboutPage from '../AboutPage'
@@ -9,45 +9,83 @@ import SearchPage from '../SearchPage'
 import DetailsPage from '../DetailsPage'
 import NotFoundPage from '../NotFoundPage'
 import AuthFormPage from '../AuthFormPage'
-
+// import googleConfig from '../../../google.config.js'
 
 function App() {
   // Store API data
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [arrays, setArrays] = useState([])
+  // const googleApiKey = config.googleApiKey;
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [apiData, setApiData] = useState({})
   const [detailsData, setDetailsData] = useState({})
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [location, setLocation] = useState('')
+  const [latitude, setlatitude] = useState('')
+  const [longitude, setlongitude] = useState('')
+  const [forecastData, setForecastData] = useState(null);
 
 
-    // Async function to JSONify the query response  
-    async function getData(url) {
-        const res = await fetch(url) 
-        const data = await res.json() 
-        setArrays(arrays.concat(data)) // Update state with fetched data
-        console.log(arrays)
-    }
+  async function getData(url) {
+      const res = await axios.get(url);
+      setApiData(res.data); // Update the state with API data
+   
+//Useing nested axios requests to fetch data from another API endpoint as part of the existing API call,
+  async function getData(url) {
+      const res = await axios.get(url);
+      setApiData(res.data);
 
-  // // Query GOOGLE GEOCODE API on component mount, and get Lat/Long for NWS API to pull up weather for that set location
-  // useEffect(() => {
-  //   getData(`https://maps.googleapis.com/maps/api/geocode/json?address=waikiki+beach,+honolulu,+HI&key=GOOGLE_API_KEY`);
-  // }, [])
+      if (res.data.properties && res.data.properties.forecastGridData) {
+        const forecastGridDataUrl = res.data.properties.forecastGridData;
+        const forecastRes = await axios.get(forecastGridDataUrl);
+        setForecastData(forecastRes.data);
+      }
+    } 
+  }
 
-  // Query National Weather Service API on component mount, and get weather for this location as a test
+
+  // `https://maps.googleapis.com/maps/api/geocode/json?address=${location}}&key=${GOOGLE_API_KEY}`
+
+  //Once address is added obtain Latitude
+  // {data?.results[0]?.geometry?.lat}
+  //Obtain Longitude
+  // {data?.results[0]?.geometry?.lng}
+
+    
   useEffect(() => {
-    getData(`https://api.weather.gov/points/21.2793,-157.8291`);
+      // Replace with the location you want to query/ OpenWeatherMap API
+    // getData(`https://api.openweathermap.org/data/2.5/weather?q=kahului&units=imperial&appid=1dfe787e4a4f3b8527b7a12362b58682`)
+    // NOAA National Weather Service API
+    getData(`https://api.weather.gov/points/${latitude},${longitude}`)
   }, [])
+
+  // const searchLocation = async (event) => {
+  //   if (event.key === 'Enter') {
+  //     try {
+  //       const response = await axios.get(url);
+  //       updateDetails(response.data);
+  //       setLocation('');
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+  // }
+
+  // const searchLocation = async (event) => {
+  //   if (event.key === 'Enter') {
+  //     setLocation(event.target.value);
+  //   }
+  // }
 
   // Function to toggle the menu open and close
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-  };
-
+  }
+  
   // Handle user logout, 
   const handleLogout = () => {
     // Implement logic to clear user authentication, e.g., set isAuthenticated to false
     setIsAuthenticated(false);
     // Clear user token from localStorage or send a logout API request if needed
-  };  
+  }  
 
 //  Create the HTML using JSX for the App component
 return (
@@ -98,7 +136,7 @@ return (
                 </li>
               </ul>
           </div>
-          <div className="flex-grow">
+          {/* <div className="flex-grow">
               <ul className="flex justify-center text-white border-b-2 border-b-yellow-400 text-sm font-medium mr-2">
                 <li>
                   <Link to="/search">
@@ -106,7 +144,7 @@ return (
                   </Link>
                 </li>
               </ul>
-          </div>
+          </div> */}
 
           {/* Add auth in the navbar to display logIn/SignUp or LogOut/Profile. Conditionally render based on authentication state */}
           {isAuthenticated ? (
@@ -159,8 +197,8 @@ return (
     
     {/* Routes */}
     <Routes>
-      <Route path="/" element={
-      <HomePage arrays={arrays} getData={getData} setDetailsData={setDetailsData} />} />
+      <Route path="/" element=
+      {<HomePage apiData={apiData} url={`https://api.weather.gov/points/39.7456,-97.0892`} updateDetails={setDetailsData} forecastData={forecastData} />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/search" element={<SearchPage setDetailsData={setDetailsData} />} />
       <Route path="/details" element={<DetailsPage {...detailsData} />} />
@@ -170,12 +208,13 @@ return (
       <Route path="/*" element={<NotFoundPage />} />
     </Routes>
 
+
     {/* Footer */}
-    <div className="mx-auto w-[50vw] flex flex-row justify-between items-center mb-0">
-      <a href="https://github.com"><img className="h-9" src="https://i.postimg.cc/YCZRXsyB/Git-Hub-icon.png" /></a>
-      <a href="https://www.instagram.com"><img className="w-6" src="https://i.postimg.cc/Bvh14y8F/instagram-icon-WHT.png" /></a>
-      <a href="https://www.facebook.com/"><img className="w-6" src="https://i.postimg.cc/9QY7NzCJ/facebook-icon-WHT.png" /></a>
-    </div>
+      <div className="mx-auto w-[50vw] flex flex-row justify-between items-center mb-0">
+        <a href="https://github.com"><img className="h-9" src="https://i.postimg.cc/YCZRXsyB/Git-Hub-icon.png" /></a>
+        <a href="https://www.instagram.com"><img className="w-6" src="https://i.postimg.cc/Bvh14y8F/instagram-icon-WHT.png" /></a>
+        <a href="https://www.facebook.com/"><img className="w-6" src="https://i.postimg.cc/9QY7NzCJ/facebook-icon-WHT.png" /></a>
+      </div>
     </>
   )
 }

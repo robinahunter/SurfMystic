@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Gallery from '../Gallery'
+import Card from '../Card'
 import { Link } from "react-router-dom"
 
 export default function SearchPage(props) {
@@ -55,7 +55,7 @@ export default function SearchPage(props) {
 
 {queryResults.length > 0 && (
    
-    <Gallery
+    <Card
     arrays={queryResults}
     refreshQueue={getData}
     url={`https://api.weather.gov/gridpoints/TOP/31,80/forecast`}

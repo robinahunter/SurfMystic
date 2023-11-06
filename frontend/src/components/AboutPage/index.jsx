@@ -8,7 +8,6 @@ export default function AboutPage() {
         <br />
         <h2 className="text-white mx-auto text-3xl">  
           Know Before You Go! 
-          <br /><br />
         </h2>
         <h5 className="text-white mx-auto font-medium w-[75vw]">
           Whether you're a seasoned surfer or a salty sea novice, our app empowers you with real-time weather data and detailed sea conditions, ensuring that every surf session becomes a thrilling adventure. Ride the tides of anticipation as you track swells, check wind speeds, and unlock the secrets of the sea, all while discovering new spots and forging unforgettable memories.  
