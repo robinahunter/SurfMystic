@@ -123,3 +123,14 @@ https://openweathermap.org/
 NOAA National Weather Service API
 https://www.weather.gov/documentation/services-web-api
 
+Mozill Docs:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+Axios Docs:
+https://axios-http.com/docs/intro
+
+Javascript function to convert wind direction in degrees to cardinal Felipe Skroski:
+https://gist.github.com/felipeskroski-zz/8aec22f01dabdbf8fb6b
+
+Math.abs() Mozilla:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs

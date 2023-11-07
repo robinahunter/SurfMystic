@@ -18,7 +18,13 @@ const db = require('../models')
 const config = require('../../jwt.config.js')
 
 
-// Routes
+// Routes -----------------------------------------------------------
+// Index Route (GET/Read): Will display user
+router.get('/:id', function (req, res) {
+    db.User.findById( req.params.id )
+        .then(user => res.json(user))
+})
+
 // LOG IN (log into a user account)
 router.post('/login', async (req, res) => {
     // attempt to find the user by their email in the database
@@ -32,7 +38,8 @@ router.post('/login', async (req, res) => {
         const token = jwt.encode(payload, config.jwtSecret)
         res.json({
             token: token,
-            email: foundUser.email
+            email: foundUser.email,
+            userId: foundUser._id
         })
         // if the user was not found in the database OR their password was incorrect, send an error
     } else {

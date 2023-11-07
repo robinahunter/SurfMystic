@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
   favoriteLocations: [
       {
         locationName: String, // Name of the location 
-        locationCode: String, // Code or identifier for the location /NWS location code
+        locationUrl: String, // Code or identifier for the location /NWS location code
       },
     ],
   images: { type: [String], },

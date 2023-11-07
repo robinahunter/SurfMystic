@@ -1,0 +1,13 @@
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { Routes, Route, Link } from 'react-router-dom'
+import blueWave from '../../assets/bluewave.png'
+import HomePage from '../HomePage'
+import UserPage from '../UserPage'
+import AboutPage from '../AboutPage'
+import SearchPage from '../SearchPage'
+import DetailsPage from '../DetailsPage'
+import NotFoundPage from '../NotFoundPage'
+import AuthFormPage from '../AuthFormPage'
+// import googleConfig from '../../../google.config.js'
+
