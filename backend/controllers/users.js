@@ -3,6 +3,8 @@
 // ---------------------------------------------------------------------------------------
 
 // Required modules
+// 'jwt-simple' is being imported as a Node.js module
+// This module provides functions fro encoding and decoding JSON Web Tokens (JWTs)
 const jwt = require('jwt-simple')
 const express = require('express')
 // Router allows us to handle routing outisde of server.js

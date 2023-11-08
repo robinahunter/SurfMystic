@@ -18,26 +18,59 @@ function App() {
   const [address, setAddress] = useState('')
   const [locationData, setLocationData] = useState({})
   const [forecastData, setForecastData] = useState(null);
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+
+  // useEffect(() => {
+  //   // Fetch user's location using Geolocation API JavaScript
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       setLatitude(position.coords.latitude);
+  //       setLongitude(position.coords.longitude);
+  //       console.log(latitude)
+  //       console.log(longitude)
+
+  //       // Fetch weather data for the user's location
+  //       const fetchUserLocation = async () => {
+  //         if (latitude && longitude) {
+  //           const response = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`);
+  //           setLocationData(response.data);
+
+  //           // Within the API, follow the path locationData.properties.relativeLocation.forecastGridData
+  //           // to obtain the URL for the forecast
+  //           const forecastGridDataUrl = response.data.properties?.forecastGridData;
+  //           if (forecastGridDataUrl) {
+  //             const forecastResponse = await axios.get(forecastGridDataUrl);
+  //             setForecastData(forecastResponse.data);
+  //           }
+  //         }
+  //       };
+
+  //       // Call the function to fetch data for the user's location
+  //       fetchUserLocation();
+  //     });
+  //   }
+  // }, [latitude, longitude, setLocationData, setForecastData]);
   
-    //(Update this with JavaScript Geolocation function to find users location)
-    useEffect(() => {
-       // Fetch weather data for Honolulu, HI on mount (preload data before user selects a location)
-      const fetchHonoluluLocation = async () => {
-          const response = await axios.get('https://api.weather.gov/points/20.8318,-156.6689');
-          setLocationData(response.data);
+    // //(Update this with JavaScript Geolocation function to find users location)
+    // useEffect(() => {
+    //    // Fetch weather data for Honolulu, HI on mount (preload data before user selects a location)
+    //   const fetchHonoluluLocation = async () => {
+    //       const response = await axios.get('https://api.weather.gov/points/20.8318,-156.6689');
+    //       setLocationData(response.data);
   
-      // Within the API follow the path locationData.properties.relativeLocation.forecastGridData to obtain url for forecast
-      const forecastGridDataUrl = response.data.properties?.forecastGridData;
-      if (forecastGridDataUrl) {
-          const forecastResponse = await axios.get(forecastGridDataUrl);
-          setForecastData(forecastResponse.data);
-          console.log(forecastGridDataUrl)
-        }
-      } 
+    //   // Within the API follow the path locationData.properties.relativeLocation.forecastGridData to obtain url for forecast
+    //   const forecastGridDataUrl = response.data.properties?.forecastGridData;
+    //   if (forecastGridDataUrl) {
+    //       const forecastResponse = await axios.get(forecastGridDataUrl);
+    //       setForecastData(forecastResponse.data);
+    //       // console.log(forecastGridDataUrl)
+    //     }
+    //   } 
     
-        // Call the function to fetch data for Honolulu on component mount
-        fetchHonoluluLocation();
-      }, []);
+    //     // Call the function to fetch data for Honolulu on component mount
+    //     fetchHonoluluLocation();
+    //   }, []);
 
   // Function to toggle the menu open and close
   const toggleMenu = () => {

@@ -1,11 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom";
 
-export default function HomePage({ locationData, forecastData, address, setAddress, setLocationData, setForecastData }) {
+export default function HomePage() {
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
+    const [locationData, setLocationData] = useState({})
+    const [forecastData, setForecastData] = useState(null);
+    const [address, setAddress] = useState('');
     console.log(address)
+
     //function to find closest degree value in the degreeToCardinal object based on a given degree for wind direction. 
     function windDir(degrees) {
         const degreeToCardinal = {
@@ -37,9 +41,43 @@ export default function HomePage({ locationData, forecastData, address, setAddre
   return degreeToCardinal[closestMatch];
 }
 
+useEffect(() => {
+    // Fetch user's location using Geolocation API JavaScript
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLatitude(position.coords.latitude.toFixed(4));
+        setLongitude(position.coords.longitude.toFixed(4));
+        console.log(latitude)
+        console.log(longitude)
+        console.log(position)
+    });
+    }
+}, []); 
+
+useEffect(() => {
+        // Fetch weather data for the user's location
+        const fetchUserLocation = async () => {
+          if (latitude && longitude) {
+            const response = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`);
+            setLocationData(response.data);
+
+            // Within the API, follow the path locationData.properties.relativeLocation.forecastGridData
+            // to obtain the URL for the forecast
+            const forecastGridDataUrl = response.data.properties?.forecastGridData;
+            if (forecastGridDataUrl) {
+              const forecastResponse = await axios.get(forecastGridDataUrl);
+              setForecastData(forecastResponse.data);
+            }
+          }
+        };
+
+        // Call the function to fetch data for the user's location
+        fetchUserLocation();
+      }, [latitude, longitude, setLocationData, setForecastData]);
+
     const searchAddress = async (event) => {
         if (event.key === 'Enter') {
-                const googleResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyAz6LmWDNhT2JNgrhZC2qEktbdOUjCicpM`);
+                const googleResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${import.meta.env.GOOGLE_API_KEY}`);
                 const location = googleResponse.data.results[0]?.geometry?.location;
                 if (location) {
                     //Store the lat and long in variables and set the fixed decimal point to 4 max per the NWS API docs
@@ -52,7 +90,7 @@ export default function HomePage({ locationData, forecastData, address, setAddre
                 //Pull lat long variables into NWS Api to pull initial weather for address entered by user
                 if (latitude && longitude) {
                     const nwsResponse = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`);
-                    console.log(nwsResponse.length)
+                    // console.log(nwsResponse.length)
                     // nwsResponse.data to access weather information.
                     setLocationData(nwsResponse.data);
         
@@ -221,12 +259,12 @@ export default function HomePage({ locationData, forecastData, address, setAddre
                     </div>
 
                     <div className="primarySwellHeight mb-3 ml-4 text-left">
-                        {forecastData?.properties?.primarySwellHeight?.values[0].value ? (
+                        {forecastData?.properties?.primarySwellHeight?.values[0].value !== undefined ? (
                         <p className="text-bold">
                             Swell: {(forecastData.properties.primarySwellHeight.values[0].value * 3.28084).toFixed(2)}'
                         </p>
                         ) : (
-                        'No primSwellHt'
+                        <p>No Swell</p>
                         )}
                     </div>
                 </div>
@@ -234,19 +272,26 @@ export default function HomePage({ locationData, forecastData, address, setAddre
             </div>
             
             <div className='googleMap mt-2'>
-            <div className="text-left ml-10 mr-10 text-white p-2 text-m">
-                        <iframe
-                            class="w-full aspect-video rounded-lg"
-                            src={`https://www.google.com/maps?q=${address}&output=embed`}
-                            width="275"
-                            height="300"
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                            title="Google Maps">
-                        </iframe>
-                        </div>
+                <div className="text-left ml-10 mr-10 text-white p-2 text-m">
+                    <iframe
+                        className="w-full aspect-video rounded-lg"
+                        src={`https://www.google.com/maps?q=${latitude},${longitude}&output=embed`}
+                        width="275"
+                        height="300"
+                        loading="lazy"
+                        frameBorder="0"
+                        style={{ border: 0 }}
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Google Maps">
+                    </iframe>
+                </div>
             </div>
         </div>         
     </>
     )
 }
+
+// {`https://www.google.com/maps?q=${latitude},${longitude}&output=embed`}
+// {`https://www.google.com/maps?q=${address}&output=embed`}
+// {`https://www.google.com/maps/embed/v1/view?zoom=14&center=${latitude},${longitude}&key=${import.meta.env.GOOGLE_API_KEY}`}
+// {`https://www.google.com/maps/embed/v1/view?key=${import.meta.env.GOOGLE_API_KEY}&q=${latitude},${longitude}&zoom=15&maptype=roadmap`}

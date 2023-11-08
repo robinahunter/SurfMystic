@@ -51,7 +51,7 @@ export default function AuthFormPage({setIsAuthenticated}) {
   
   return (
       <div>
-        <div className="h-[80vh]">
+        <div className="">
           <div className="bg-neutral-800 rounded-lg p-8 w-full max-w-md mx-auto">
               <h2 className="text-3xl text-left font-bold text-white mb-8">{actionText}</h2>
               <form className="space-y-6" onSubmit={handleSubmit}>

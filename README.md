@@ -134,3 +134,13 @@ https://gist.github.com/felipeskroski-zz/8aec22f01dabdbf8fb6b
 
 Math.abs() Mozilla:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs
+
+JavaScript function to find users location:
+Shecode:
+https://www.shecodes.io/athena/9970-retrieve-user-location-with-geolocation-in-react#:~:text=in%204.33%20seconds-,To%20retrieve%20the%20user's%20current%20location%20using%20geolocation%20in%20React,to%20handle%20the%20error%20case.
+
+Mozilla
+https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API
+
+w3c
+https://w3c.github.io/geolocation-api/#position_interface

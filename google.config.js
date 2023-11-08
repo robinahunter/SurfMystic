@@ -1,6 +1,4 @@
-
-import dotenv from 'dotenv';
-dotenv.config();
+require('dotenv').config()
 
 const googleConfig = {
   googleApiKey: process.env.GOOGLE_API_KEY,

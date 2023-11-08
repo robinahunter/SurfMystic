@@ -16,7 +16,7 @@ export default function UserPage() {
       note: '',
       image: ''
   })
-  console.log(deleteUser)
+  // console.log(deleteUser)
     useEffect(()=> {
     fetch(`http://localhost:3000/api/users/${id}`, {
         method: 'GET',
@@ -41,7 +41,7 @@ export default function UserPage() {
             })
         .catch((err) => console.error(err))
     },[id])
-    console.log(userData)
+    // console.log(userData)
 
     // Update the form fields as the user types
     function handleInputChange(event) {
@@ -213,7 +213,8 @@ export default function UserPage() {
                     <p>Images:</p>
                   </li>
                   <li>
-                  { userData?.image }
+                    {/* Check if image is present, if it is truthy render img element */}
+                  { userData?.image && <img className='w-[20vw]' src={userData.image} alt="User Image" />}
                   </li>
                 </ul>
               </div>
