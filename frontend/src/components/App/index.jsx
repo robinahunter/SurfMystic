@@ -67,7 +67,11 @@ return (
                   </li>
                 </ul>
               </div>
+              <div className='block justify-between'>
+                  <h2 className="text-white text-2xl">SurfMystic</h2>
+              </div>
             </Link>
+
             <div className="flex items-center pr-4">
               <button type="button" onClick={toggleMenu} className="justify-between p2">
                   <div className="bg-pink-400 px-5 pt-1 rounded"></div>

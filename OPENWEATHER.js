@@ -44,3 +44,60 @@ return (
 </>
 )
 }
+
+
+// USER PAGE BACKUP
+
+import AuthFormPage from '../AuthFormPage'
+import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+
+export default function UserPage() {
+  const { id } = useParams();
+  const [userData, setUserData]=useState(null)
+
+useEffect(()=> {
+  fetch(`http://localhost:3000/api/users/${id}`, {
+     method: 'GET',
+     headers: { 'Content-Type': 'application/json' },
+    })
+     .then((res) => res.json())
+     .then((data) => {
+      setUserData(data);
+     })
+     .catch((err) => console.error(err));
+},[])
+console.log(userData)
+
+    return (
+        <>
+        <div className="w-[75vw] h-[80vh] mx-auto">
+          <br /><br />
+          <h2 className="text-white mx-auto text-3xl font-bold">Hello, { userData?.name }</h2>
+          <p>Welcome message</p>
+          <br />
+          <div className="favoriteList">
+            <ul>
+              <li><p>'Place Holder Favorite Locations'</p></li>
+              <li>1.</li>
+              <li>2.</li>
+            </ul>   
+          </div> 
+          <div className="notes">
+            <ul>
+              <li>
+                <p>'Place Holder Notes'</p> 
+              </li>
+            </ul>
+          </div>
+          <div className="photos">
+            <ul>
+                <li>
+                  <p>'Place Holder Photos'</p> 
+                </li>
+              </ul>
+          </div>
+        </div>
+        </>
+    )
+  }

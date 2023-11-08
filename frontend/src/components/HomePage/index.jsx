@@ -150,35 +150,35 @@ export default function HomePage({ locationData, forecastData, address, setAddre
                 )}
             </div>
 
-            <div className='flex mx-auto border rounded-lg mt-4 w-[75vw]'>
+            <div className='flex mx-auto border rounded-lg mt-4 w-[320px]'>
                 {/* Wind data ------------ */}
                 <div className='windData text-right w-[50vw]'>
                     <p className='mt-2 mr-4 text-pink-400'>WIND</p>
                     <div className="windDirection mt-2 mr-4 text-right">
                         {forecastData?.properties?.windDirection?.values[0].value ? (
-                        <h1 className="text-bold text-xl">
+                        <p className="text-bold">
                             Direction: {windDir(forecastData.properties.windDirection.values[0].value)} ({forecastData.properties.windDirection.values[0].value}°)
-                        </h1>
+                        </p>
                         ) : (
                         'No data'
                         )}
                     </div>
 
-                    <div className="windSpeed mt-2 mr-4 text-right">
+                    <div className="windSpeed mr-4 text-right">
                         {forecastData?.properties?.windSpeed?.values[0].value ? (
-                        <h1 className="text-bold text-xl">
+                        <p className="text-bold ">
                             Speed: {(forecastData.properties.windSpeed.values[0].value * 0.621371192).toFixed()} MPH
-                        </h1>
+                        </p>
                         ) : (
                         'No data'
                         )}
                     </div>
 
-                    <div className="windGust mt-2 mr-4 text-right">
+                    <div className="windGust mr-4 text-right">
                         {forecastData?.properties?.windGust?.values[0].value ? (
-                        <h1 className="text-bold text-xl">
+                        <p className="text-bold">
                             Gusts: {(forecastData.properties.windGust.values[0].value * 0.621371192).toFixed()} MPH
-                        </h1>
+                        </p>
                         ) : (
                         'No data'
                         )}
@@ -192,41 +192,41 @@ export default function HomePage({ locationData, forecastData, address, setAddre
                 <p className='mt-2 ml-4 text-emerald-400'>WAVES</p>
                     <div className="waveHeight mt-2 ml-4 ext-left">
                         {forecastData?.properties?.waveHeight?.values[0].value ? (
-                        <h1 className="text-bold text-xl">
+                        <p className="text-bold">
                             Height: {(forecastData.properties.waveHeight.values[0].value * 3.28084).toFixed()}'
-                        </h1>
+                        </p>
                         ) : (
                         'No waveHeight data'
                         )}
                     </div>
 
-                    <div className="wavePeriod mt-2 ml-4 ext-left">
+                    <div className="wavePeriod ml-4 ext-left">
                         {forecastData?.properties?.wavePeriod?.values[0].value ? (
-                        <h1 className="text-bold text-xl">
+                        <p className="text-bold">
                             Period: {forecastData.properties.wavePeriod.values[0].value.toFixed()} sec
-                        </h1>
+                        </p>
                         ) : (
                         'No wavePeriod data'
                         )}
                     </div>
 
-                    <div className="waveDirection mt-2 ml-4 text-left">
+                    <div className="waveDirection ml-4 text-left">
                         {forecastData?.properties?.waveDirection?.values[0] ? (
-                        <h1 className="text-bold text-xl">
+                        <p className="text-bold">
                             Wave Direction: {forecastData.properties.waveDirection.values[0].toFixed()} degrees?
-                        </h1>
+                        </p>
                         ) : (
-                        'No waveDirection data'
+                        'No waveDirection'
                         )}
                     </div>
 
-                    <div className="primarySwellHeight mt-2 mb-3 ml-4 text-left">
+                    <div className="primarySwellHeight mb-3 ml-4 text-left">
                         {forecastData?.properties?.primarySwellHeight?.values[0].value ? (
-                        <h1 className="text-bold text-xl">
+                        <p className="text-bold">
                             Swell: {(forecastData.properties.primarySwellHeight.values[0].value * 3.28084).toFixed(2)}'
-                        </h1>
+                        </p>
                         ) : (
-                        'No primarySwellHeight data'
+                        'No primSwellHt'
                         )}
                     </div>
                 </div>
