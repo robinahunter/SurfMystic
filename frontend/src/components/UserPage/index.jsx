@@ -2,6 +2,7 @@ import AuthFormPage from '../AuthFormPage'
 import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom"
 import axios from 'axios';
+import deleteUser from '../../../utils/backend';
 
 export default function UserPage() {
   const { id } = useParams()
@@ -15,7 +16,7 @@ export default function UserPage() {
       note: '',
       image: ''
   })
-
+  console.log(deleteUser)
     useEffect(()=> {
     fetch(`http://localhost:3000/api/users/${id}`, {
         method: 'GET',
@@ -29,7 +30,11 @@ export default function UserPage() {
                 name: data.name,
                 email: data.email,
                 password: data.password,
-                favoriteLocation: editFormData.favoriteLocation,
+                // favoriteLocation: editFormData.favoriteLocation,
+                favoriteLocation: {
+                  locationName: "Don't forget to insert here", // Name of the location 
+                  locationUrl: "Don't forget to insert here", // Code or identifier for the location /NWS location code
+                }, 
                 note: editFormData.note,
                 image: editFormData.image,
                 })
@@ -50,9 +55,13 @@ export default function UserPage() {
     function handleSubmit(event) {
         event.preventDefault()
 
-    const userId = ''    
+   
     // Update user data
-    axios.put(`http://localhost:3000/api/users/${userId}`, editFormData)
+    axios.put(`http://localhost:3000/api/users/${id}`, editFormData, { 
+      headers:{
+        "Authorization": localStorage.getItem('userToken')
+      }
+    })
     .then((response) => {
         setUserData(response.data)
         setShowEditForm(false)
@@ -67,7 +76,7 @@ export default function UserPage() {
 
     // Delete a user
     function handleDelete() {
-        deleteUser(data._id)
+        deleteUser(id)
             .then(() => window.location.href = '/')
     }
 
@@ -86,7 +95,7 @@ export default function UserPage() {
             />
             <br />
             <input
-                className="w-full p-2 text-white rounded-md focus:outline-none focus:ring focus:border-blue-600"
+                className="p-2 my-2 w-full bg-Neutral-700 text-white"
                 id="email"
                 name="email"
                 type="email"
@@ -97,7 +106,7 @@ export default function UserPage() {
             />
             <br />
             <input
-                className="w-full p-2 text-white rounded-md focus:outline-none focus:ring focus:border-blue-600"
+                className="p-2 my-2 w-full bg-Neutral-700 text-white"
                 id="password"
                 name="password"
                 type="password"
@@ -113,7 +122,16 @@ export default function UserPage() {
                 name="favoriteLocation"
                 className="p-2 my-2 w-full bg-Neutral-700 text-white"
                 placeholder="Save your favorite location here!"
-                value={editFormData.favoriteLocation}
+                value={editFormData.favoriteLocation.locationName}
+                onChange={handleInputChange}
+            />
+            <br />
+            <input
+                type="text"
+                name="favoriteLocation"
+                className="p-2 my-2 w-full bg-Neutral-700 text-white"
+                placeholder="Save your favorite location here!"
+                value={editFormData.favoriteLocation.locationName}
                 onChange={handleInputChange}
             />
             <br />
@@ -128,11 +146,12 @@ export default function UserPage() {
             <input
                 type="text"
                 name="image"
-                className="p-2 my-2 w-full bg-Neutral-700 text-white"
+                className="p-2 my-1 w-full bg-Neutral-700 text-white"
                 placeholder="Upload image URL"
                 value={editFormData.image}
                 onChange={handleInputChange}
             />
+            <br />
                 <button
                     type="submit"
                     className="text-white hover:bg-blue-600 font-bold py-1 px-4 bg-cyan-400 rounded cursor-pointer mr-1">
@@ -172,7 +191,7 @@ export default function UserPage() {
                     <p>Locations:</p>
                   </li>
                   <li>
-                  { userData?.favoriteLocation }
+                  { userData?.favoriteLocation?.locationName }
                   </li>
                 </ul>
               </div>

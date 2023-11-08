@@ -32,7 +32,7 @@ export async function updateUser(user, id) {
     return data
 }
 
-export async function deleteUser(id) {
+export default async function deleteUser(id) {
     const { data } = await axios.delete(`/api/users/${id}`, authHeader)
     return data
 }

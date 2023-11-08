@@ -19,6 +19,7 @@ const config = require('../../jwt.config.js')
 const authMiddleware = (req, res, next) => {
     // Check if the 'Authorization' header is present and has the token
     const token = req.headers.authorization;
+    console.log(token)
     if (token) {
         try {
             // Decode the token using the secret key and add the decoded payload to the request object
@@ -112,7 +113,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
 // using the URL parameter (which will always be the comment document's ID)
 router.delete('/:id', authMiddleware, async (req, res) => {
     db.User.findByIdAndDelete(req.params.id)
-        .then(() => res.json({ deletedUserId: req.params.id }))
+        .then((user) => res.json(user))
 })
 
 /* Export these routes so that they are accessible in `server.js`
