@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { Routes, Route, Link } from 'react-router-dom'
 import blueWave from '../../assets/bluewave.png'
 import HomePage from '../HomePage'
@@ -7,19 +6,18 @@ import UserPage from '../UserPage'
 import AboutPage from '../AboutPage'
 import NotFoundPage from '../NotFoundPage'
 import AuthFormPage from '../AuthFormPage'
-// import googleConfig from '../../../google.config.js'
+
 
 function App() {
-  // State variables
-  // const googleApiKey = config.googleApiKey;
+
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [detailsData, setDetailsData] = useState({})
-  const [address, setAddress] = useState('')
-  const [locationData, setLocationData] = useState({})
-  const [forecastData, setForecastData] = useState(null);
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
+  // const [detailsData, setDetailsData] = useState({})
+  // const [address, setAddress] = useState('')
+  // const [locationData, setLocationData] = useState({})
+  // const [forecastData, setForecastData] = useState(null);
+  // const [latitude, setLatitude] = useState('');
+  // const [longitude, setLongitude] = useState('');
 
   // useEffect(() => {
   //   // Fetch user's location using Geolocation API JavaScript
@@ -52,7 +50,7 @@ function App() {
   //   }
   // }, [latitude, longitude, setLocationData, setForecastData]);
   
-    // //(Update this with JavaScript Geolocation function to find users location)
+    // // (Update this with JavaScript Geolocation function to find users location)
     // useEffect(() => {
     //    // Fetch weather data for Honolulu, HI on mount (preload data before user selects a location)
     //   const fetchHonoluluLocation = async () => {
@@ -190,12 +188,12 @@ return (
     {/* Routes */}
     <Routes>
       <Route path="/" element={<HomePage 
-      locationData={locationData} 
-      address={address} 
-      setLocationData={setLocationData}
-      setForecastData={setForecastData}
-      setAddress={setAddress} 
-      forecastData={forecastData}     
+      // locationData={locationData} 
+      // address={address} 
+      // setLocationData={setLocationData}
+      // setForecastData={setForecastData}
+      // setAddress={setAddress} 
+      // forecastData={forecastData}     
       />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/auth/:formType" element={<AuthFormPage setIsAuthenticated = {setIsAuthenticated} />} />

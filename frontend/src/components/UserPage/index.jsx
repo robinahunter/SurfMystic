@@ -163,7 +163,7 @@ export default function UserPage() {
 
     return (
         <>
-            <div className="userSection w-[75vw] mx-auto">
+            <div className="userSection w-[75vw] h-[100vh] mx-auto">
               <br /><br />
               <div className="name editUser flex">
                 <div className="userName w-[50vw]">
@@ -188,10 +188,10 @@ export default function UserPage() {
               <div className="locations">
                 <ul>
                   <li>
-                    <p>Locations:</p>
+                    <p className='text-xs'>Locations:</p>
                   </li>
                   <li>
-                  { userData?.favoriteLocation?.locationName }
+                  <p className='text-yello-500'>{ userData?.favoriteLocation?.locationName }</p>
                   </li>
                 </ul>
               </div>
@@ -199,10 +199,10 @@ export default function UserPage() {
               <div className="notes">
                 <ul>
                   <li>
-                    <p>Notes:</p>
+                    <p className='text-xs pt-2'>Notes:</p>
                   </li>
                   <li>
-                  { userData?.note }
+                  <p className='text-cyan-400'>{ userData?.note }</p>
                   </li>
                 </ul>
               </div>
@@ -210,11 +210,11 @@ export default function UserPage() {
               <div className="image">
                 <ul>
                   <li>
-                    <p>Images:</p>
+                    <p className='text-xs pt-2'>Images:</p>
                   </li>
                   <li>
                     {/* Check if image is present, if it is truthy render img element */}
-                  { userData?.image && <img className='w-[20vw]' src={userData.image} alt="User Image" />}
+                  { userData?.image && <img className='w-[300px] rounded-lg pt-2' src={userData.image} alt="User Image" />}
                   </li>
                 </ul>
               </div>

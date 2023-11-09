@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import FavoriteLocation from "./../FavoriteLocation"
 // import { Link } from "react-router-dom";
 
-// 20.8438, -156.6541
 export default function HomePage() {
-    const [latitude, setLatitude] = useState('')
-    const [longitude, setLongitude] = useState('')
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
     const [locationData, setLocationData] = useState({})
-    const [forecastData, setForecastData] = useState(null)
-    const [address, setAddress] = useState('')
+    const [forecastData, setForecastData] = useState(null);
+    const [address, setAddress] = useState('');
     console.log(address)
 
     //function to find closest degree value in the degreeToCardinal object based on a given degree for wind direction. 
@@ -57,28 +55,29 @@ useEffect(() => {
 }, []); 
 
 useEffect(() => {
-   // Fetch weather data for Honolulu, HI on mount (preload data before user selects a location)
-  const fetchDefaultLocation = async () => {
-      const response = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`);
-      setLocationData(response.data);
+        // Fetch weather data for the user's location
+        const fetchWeatherData = async () => {
+          if (latitude && longitude) {
+            const response = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`);
+            setLocationData(response.data);
 
-  // Within the API follow the path locationData.properties.forecastGridData to obtain url for forecast
-  const forecastGridDataUrl = response.data.properties?.forecastGridData;
-  if (forecastGridDataUrl) {
-      const forecastResponse = await axios.get(forecastGridDataUrl);
-      setForecastData(forecastResponse.data);
-      // console.log(forecastGridDataUrl)
-    }
-  } 
+            // Within the API, follow the path locationData.properties.relativeLocation.forecastGridData
+            // to obtain the URL for the forecast
+            const forecastGridDataUrl = response.data.properties?.forecastGridData;
+            if (forecastGridDataUrl) {
+              const forecastResponse = await axios.get(forecastGridDataUrl);
+              setForecastData(forecastResponse.data);
+            }
+          }
+        };
 
-    // Call the function to fetch data for Honolulu on component mount
-    fetchDefaultLocation();
-  }, [latitude, longitude]);
+        // Call the function to fetch data for the user's location
+        fetchWeatherData();
+      }, [latitude, longitude, setLocationData, setForecastData]);
 
     const searchAddress = async (event) => {
         if (event.key === 'Enter') {
-                const googleResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyDmhOqZdStgUNHSw1Nca_sW9P9Ckb_r81I`);
-                // ${import.meta.env.GOOGLE_API_KEY}
+                const googleResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${import.meta.env.GOOGLE_API_KEY}`);
                 const location = googleResponse.data.results[0]?.geometry?.location;
                 if (location) {
                     //Store the lat and long in variables and set the fixed decimal point to 4 max per the NWS API docs
@@ -86,10 +85,7 @@ useEffect(() => {
                     setLongitude(location.lng.toFixed(4));
                     // setAddress('');
                     console.log(latitude)
-                    console.log(longitude)
-                    console.log(location) 
-                    console.log("Address:"(address))
-                      
+                    console.log(longitude)    
 
                 //Pull lat long variables into NWS Api to pull initial weather for address entered by user
                 if (latitude && longitude) {
@@ -103,39 +99,29 @@ useEffect(() => {
                     if (forecastGridDataUrl) {
                     const forecastResponse = await axios.get(forecastGridDataUrl);
                     setForecastData(forecastResponse.data);
-                    console.log(forecastGridDataUrl)
                     
                     }
                 }
             }
+          }
         }
-    }
-
-    const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        searchAddress(e);
-    }
-    };
-
     return (
         <>
     {/* Title and Search Bar Function */}
-        <div className='app mx-auto'>
-        <div className='mx-auto text-center w-[200px]'>
-            {/* <h1 className='mx-auto mb-4'>Surf + Mystic</h1> */}
-            <div className="search input flex rounded-lg justify-center">
-                <input 
-                value={address}
-                className='input bg-neutral-700 border border-neutral-200 focus:outline-pink-200 m-2 p-4 rounded-lg'
-                onChange={(event) => setAddress(event.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder='Enter Location...'
-                type="text" />
-            </div>
-
+    <div className='app flex'>
+      <div className='mx-auto text-center'>
+          {/* <h1 className='mx-auto mb-4'>Surf + Mystic</h1> */}
+        <div className="search flex rounded-lg justify-center">
+            <input 
+            value={address}
+            className='bg-neutral-700 border border-neutral-200 focus:outline-pink-200 m-2 p-4 rounded-lg'
+            onChange={event => setAddress(event.target.value)}
+            onKeyDown={searchAddress}
+            placeholder='Enter Location...'
+            type="text" />
         </div>
-        </div>
+      </div>
+    </div>
         <div>
             <div className='container mx-auto w-[50vw] justify-center'>
                 <div className="top">
@@ -188,7 +174,7 @@ useEffect(() => {
                     {forecastData.properties.weather.values[0].value[0].weather}
                 </h1>
                 ) : (
-                'No description'
+                'No description data'
                 )}
             </div>
 
@@ -202,96 +188,89 @@ useEffect(() => {
                 )}
             </div>
 
-            <div className="windWave mx-auto w-[320px]">
-                <div className='flex mx-auto border rounded-lg mt-4 w-[320px]'>
-                    {/* Wind data ------------ */}
-                    <div className='windData text-right w-[50vw]'>
-                        <p className='mt-2 mr-4 text-pink-400'>WIND</p>
-                        <div className="windDirection mt-2 mr-4 text-right">
-                            {forecastData?.properties?.windDirection?.values[0].value ? (
-                            <p className="text-bold">
-                                Direction: {windDir(forecastData.properties.windDirection.values[0].value)} ({forecastData.properties.windDirection.values[0].value}°)
-                            </p>
-                            ) : (
-                            'No data'
-                            )}
-                        </div>
-
-                        <div className="windSpeed mr-4 text-right">
-                            {forecastData?.properties?.windSpeed?.values[0].value ? (
-                            <p className="text-bold ">
-                                Speed: {(forecastData.properties.windSpeed.values[0].value * 0.621371192).toFixed()} MPH
-                            </p>
-                            ) : (
-                            'No data'
-                            )}
-                        </div>
-
-                        <div className="windGust mr-4 text-right">
-                            {forecastData?.properties?.windGust?.values[0].value ? (
-                            <p className="text-bold">
-                                Gusts: {(forecastData.properties.windGust.values[0].value * 0.621371192).toFixed()} MPH
-                            </p>
-                            ) : (
-                            'No data'
-                            )}
-                        </div>
+            <div className='flex mx-auto border rounded-lg mt-4 w-[320px]'>
+                {/* Wind data ------------ */}
+                <div className='windData text-right w-[50vw]'>
+                    <p className='mt-2 mr-4 text-pink-400'>WIND</p>
+                    <div className="windDirection mt-2 mr-4 text-right">
+                        {forecastData?.properties?.windDirection?.values[0].value ? (
+                        <p className="text-bold">
+                            Direction: {windDir(forecastData.properties.windDirection.values[0].value)} ({forecastData.properties.windDirection.values[0].value}°)
+                        </p>
+                        ) : (
+                        'No data'
+                        )}
                     </div>
-                    {/* End wind data ---------- */}
 
-
-                    {/* Wave data ---------- */}
-                    <div className='waveData mx-auto w-[50vw]'>
-                    <p className='mt-2 ml-4 text-emerald-400'>WAVES</p>
-                        <div className="waveHeight mt-2 ml-4 ext-left">
-                            {forecastData?.properties?.waveHeight?.values[0].value ? (
-                            <p className="text-bold">
-                                Height: {(forecastData.properties.waveHeight.values[0].value * 3.28084).toFixed()}'
-                            </p>
-                            ) : (
-                            'No waveHeight'
-                            )}
-                        </div>
-
-                        <div className="wavePeriod ml-4 ext-left">
-                            {forecastData?.properties?.wavePeriod?.values[0].value ? (
-                            <p className="text-bold">
-                                Period: {forecastData.properties.wavePeriod.values[0].value.toFixed()} sec
-                            </p>
-                            ) : (
-                            'No wavePeriod'
-                            )}
-                        </div>
-
-                        <div className="waveDirection ml-4 text-left">
-                            {forecastData?.properties?.waveDirection?.values[0] ? (
-                            <p className="text-bold">
-                                Wave Direction: {forecastData.properties.waveDirection.values[0].toFixed()} degrees?
-                            </p>
-                            ) : (
-                            'No waveDirection'
-                            )}
-                        </div>
-
-                        <div className="primarySwellHeight mb-3 ml-4 text-left">
-                            {forecastData?.properties?.primarySwellHeight?.values[0].value !== undefined ? (
-                            <p className="text-bold">
-                                Swell: {(forecastData.properties.primarySwellHeight.values[0].value * 3.28084).toFixed(2)}'
-                            </p>
-                            ) : (
-                            <p>No Swell</p>
-                            )}
-                        </div>
+                    <div className="windSpeed mr-4 text-right">
+                        {forecastData?.properties?.windSpeed?.values[0].value ? (
+                        <p className="text-bold ">
+                            Speed: {(forecastData.properties.windSpeed.values[0].value * 0.621371192).toFixed()} MPH
+                        </p>
+                        ) : (
+                        'No data'
+                        )}
                     </div>
-                    {/* End wave data ---------- */}
+
+                    <div className="windGust mr-4 text-right">
+                        {forecastData?.properties?.windGust?.values[0].value ? (
+                        <p className="text-bold">
+                            Gusts: {(forecastData.properties.windGust.values[0].value * 0.621371192).toFixed()} MPH
+                        </p>
+                        ) : (
+                        'No data'
+                        )}
+                    </div>
                 </div>
-                <div className="buttons mx-auto pt-2">
-                    <p className="text-pink-400 cursor-pointer text-sm text-right">
-                    Add to Favorites
-                    </p>
+                {/* End wind data ---------- */}
+
+
+                {/* Wave data ---------- */}
+                <div className='waveData mx-auto w-[50vw]'>
+                <p className='mt-2 ml-4 text-emerald-400'>WAVES</p>
+                    <div className="waveHeight mt-2 ml-4 ext-left">
+                        {forecastData?.properties?.waveHeight?.values[0].value ? (
+                        <p className="text-bold">
+                            Height: {(forecastData.properties.waveHeight.values[0].value * 3.28084).toFixed()}'
+                        </p>
+                        ) : (
+                        'No waveHeight data'
+                        )}
+                    </div>
+
+                    <div className="wavePeriod ml-4 ext-left">
+                        {forecastData?.properties?.wavePeriod?.values[0].value ? (
+                        <p className="text-bold">
+                            Period: {forecastData.properties.wavePeriod.values[0].value.toFixed()} sec
+                        </p>
+                        ) : (
+                        'No wavePeriod data'
+                        )}
+                    </div>
+
+                    <div className="waveDirection ml-4 text-left">
+                        {forecastData?.properties?.waveDirection?.values[0] ? (
+                        <p className="text-bold">
+                            Wave Direction: {forecastData.properties.waveDirection.values[0].toFixed()} degrees?
+                        </p>
+                        ) : (
+                        'No waveDirection'
+                        )}
+                    </div>
+
+                    <div className="primarySwellHeight mb-3 ml-4 text-left">
+                        {forecastData?.properties?.primarySwellHeight?.values[0].value !== undefined ? (
+                        <p className="text-bold">
+                            Swell: {(forecastData.properties.primarySwellHeight.values[0].value * 3.28084).toFixed(2)}'
+                        </p>
+                        ) : (
+                        <p>No Swell</p>
+                        )}
+                    </div>
                 </div>
+                {/* End wave data ---------- */}
             </div>
-
+            
             <div className='googleMap mt-2'>
                 <div className="text-left ml-10 mr-10 text-white p-2 text-m">
                     <iframe
