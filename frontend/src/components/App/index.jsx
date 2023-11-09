@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-import blueWave from '../../assets/bluewave.png'
+import blueWave from '../../assets/blueWave2.svg' 
 import HomePage from '../HomePage'
 import UserPage from '../UserPage'
 import AboutPage from '../AboutPage'

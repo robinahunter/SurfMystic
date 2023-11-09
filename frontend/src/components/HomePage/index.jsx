@@ -59,13 +59,21 @@ useEffect(() => {
 useEffect(() => {
    // Fetch weather data for Honolulu, HI on mount (preload data before user selects a location)
   const fetchDefaultLocation = async () => {
-      const response = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`);
+      const response = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`, {
+      headers: {
+        'User-Agent': 'auth, r@r-hunter.com',
+      },
+    });
       setLocationData(response.data);
 
   // Within the API follow the path locationData.properties.forecastGridData to obtain url for forecast
   const forecastGridDataUrl = response.data.properties?.forecastGridData;
   if (forecastGridDataUrl) {
-      const forecastResponse = await axios.get(forecastGridDataUrl);
+      const forecastResponse = await axios.get(forecastGridDataUrl, {
+        headers: {
+            'User-Agent': 'auth, r@r-hunter.com',
+          },
+        });
       setForecastData(forecastResponse.data);
       // console.log(forecastGridDataUrl)
     }
@@ -93,15 +101,23 @@ useEffect(() => {
 
                 //Pull lat long variables into NWS Api to pull initial weather for address entered by user
                 if (latitude && longitude) {
-                    const nwsResponse = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`);
+                    const nwsResponse = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`, {
                     // console.log(nwsResponse.length)
                     // nwsResponse.data to access weather information.
+                    headers: {
+                        'User-Agent': 'auth, r@r-hunter.com',
+                      },
+                    });
                     setLocationData(nwsResponse.data);
         
                     //Pull forecast url from locationData to get forecast
                     const forecastGridDataUrl = nwsResponse.data.properties?.forecastGridData;
                     if (forecastGridDataUrl) {
-                    const forecastResponse = await axios.get(forecastGridDataUrl);
+                    const forecastResponse = await axios.get(forecastGridDataUrl, {
+                        headers: {
+                            'User-Agent': 'auth, r@r-hunter.com',
+                          },
+                        });
                     setForecastData(forecastResponse.data);
                     console.log(forecastGridDataUrl)
                     
@@ -177,9 +193,7 @@ useEffect(() => {
                 {forecastData?.properties?.relativeHumidity?.values[0].value ? (
                 <h1 className="text-bold text-xl">Humidity: {forecastData.properties.relativeHumidity.values[0].value.toFixed()}%
                 </h1>
-                ) : (
-                'No data'
-                )}
+                ) : null}
             </div>
 
             <div className="weather mt-2 text-center">
@@ -187,9 +201,7 @@ useEffect(() => {
                 <h1 className="text-bold text-xl">
                     {forecastData.properties.weather.values[0].value[0].weather}
                 </h1>
-                ) : (
-                'No description'
-                )}
+                ) : null}
             </div>
 
             <div className="chanceOfRain mt-2 text-center">
@@ -197,9 +209,7 @@ useEffect(() => {
                 <h1 className="text-bold text-xl">
                     Precipitation: {forecastData.properties.probabilityOfPrecipitation.values[0].value}%
                 </h1>
-                ) : (
-                'No data'
-                )}
+                ) : null}
             </div>
 
             <div className="windWave mx-auto w-[320px]">
@@ -212,9 +222,7 @@ useEffect(() => {
                             <p className="text-bold">
                                 Direction: {windDir(forecastData.properties.windDirection.values[0].value)} ({forecastData.properties.windDirection.values[0].value}°)
                             </p>
-                            ) : (
-                            'No data'
-                            )}
+                            ) : null}
                         </div>
 
                         <div className="windSpeed mr-4 text-right">
@@ -222,9 +230,7 @@ useEffect(() => {
                             <p className="text-bold ">
                                 Speed: {(forecastData.properties.windSpeed.values[0].value * 0.621371192).toFixed()} MPH
                             </p>
-                            ) : (
-                            'No data'
-                            )}
+                            ) : null}
                         </div>
 
                         <div className="windGust mr-4 text-right">
@@ -232,9 +238,7 @@ useEffect(() => {
                             <p className="text-bold">
                                 Gusts: {(forecastData.properties.windGust.values[0].value * 0.621371192).toFixed()} MPH
                             </p>
-                            ) : (
-                            'No data'
-                            )}
+                            ) : null}
                         </div>
                     </div>
                     {/* End wind data ---------- */}
@@ -249,7 +253,7 @@ useEffect(() => {
                                 Height: {(forecastData.properties.waveHeight.values[0].value * 3.28084).toFixed()}'
                             </p>
                             ) : (
-                            'No waveHeight'
+                            'No Wave Data'
                             )}
                         </div>
 
@@ -258,9 +262,7 @@ useEffect(() => {
                             <p className="text-bold">
                                 Period: {forecastData.properties.wavePeriod.values[0].value.toFixed()} sec
                             </p>
-                            ) : (
-                            'No wavePeriod'
-                            )}
+                            ) : null}
                         </div>
 
                         <div className="waveDirection ml-4 text-left">
@@ -268,9 +270,7 @@ useEffect(() => {
                             <p className="text-bold">
                                 Wave Direction: {forecastData.properties.waveDirection.values[0].toFixed()} degrees?
                             </p>
-                            ) : (
-                            'No waveDirection'
-                            )}
+                            ) : null}
                         </div>
 
                         <div className="primarySwellHeight mb-3 ml-4 text-left">

@@ -73,9 +73,12 @@ router.post('/signup', (req, res) => {
     // Create a new user
     db.User.create(req.body)
         .then(user => {
+            // Get newly created user ID
+            const userId = user.id
+
             // if the database creates a user successfully, assign a JWT to the user and send the JWT as the response
-            const token = jwt.encode({ id: user.id }, config.jwtSecret)
-            res.json({ token: token })
+            const token = jwt.encode({ id: userId }, config.jwtSecret)
+            res.json({ userId: userId, token: token })
         })
 
         // send an error if the database fails to create a user followed by the error object

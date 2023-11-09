@@ -1,8 +1,9 @@
 import AuthFormPage from '../AuthFormPage'
 import React, { useState, useEffect } from 'react'
+import deleteUser from '../../../utils/backend'
 import { useParams } from "react-router-dom"
+import noImage from '../../assets/NoImage.png' 
 import axios from 'axios';
-import deleteUser from '../../../utils/backend';
 
 export default function UserPage() {
   const { id } = useParams()
@@ -12,9 +13,9 @@ export default function UserPage() {
       name: '',
       email: '',
       password: '',
-      favoriteLocation: '',
-      note: '',
-      image: ''
+      favoriteLocation: [],
+      note: [],
+      image: []
   })
   // console.log(deleteUser)
     useEffect(()=> {
@@ -167,21 +168,21 @@ export default function UserPage() {
               <br /><br />
               <div className="name editUser flex">
                 <div className="userName w-[50vw]">
-                  <h2 className="text-white mx-auto text-3xl">Hello, { userData?.name }</h2>
+                  <h2 className="text-white mx-auto text-3xl">Hello, <span className='text-pink-400'>{ userData?.name }</span></h2>
                 </div>
                 <div className="buttons text-right w-[50vw]">
                   <p onClick={() => { setShowEditForm(true) }}
-                  className="text-emerald-400 cursor-pointer text-sm">
+                  className="text-emerald-400 hover:text-emerald-200 hover:text-sm cursor-pointer text-xs">
                     Edit User
                   </p>
                   <p onClick={handleDelete}
-                  className="text-pink-400 cursor-pointer text-sm">
+                  className="text-pink-400 hover:text-pink-200 hover:text-sm cursor-pointer text-xs">
                     Delete User
                   </p>
                 </div>
               </div>
                 {editForm}
-              <div className="welcome">
+              <div className="welcome tex">
               <p>Welcome to your dashboard:</p>
               </div>
                 <br />
@@ -212,9 +213,13 @@ export default function UserPage() {
                   <li>
                     <p className='text-xs pt-2'>Images:</p>
                   </li>
-                  <li>
+                  <li className='w-[300px] pt-2'>
                     {/* Check if image is present, if it is truthy render img element */}
-                  { userData?.image && <img className='w-[300px] rounded-lg pt-2' src={userData.image} alt="User Image" />}
+                  { userData?.image && userData.image !== '' ? ( 
+                    <img className='object-cover rounded-lg shadow-lg shadow-pink-200/25 hover:shadow-pink-500/25' src={userData.image} />
+                  ) : (
+                    <img className='object-fill' src={noImage} alt="No Image" />
+                  )}
                   </li>
                 </ul>
               </div>

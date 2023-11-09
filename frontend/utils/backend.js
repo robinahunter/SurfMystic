@@ -1,10 +1,15 @@
 import axios from 'axios'
 
-const authHeader = { headers: { 'Authorization': localStorage.getItem('userToken') } }
+// const authHeader = { headers: { 'Authorization': localStorage.getItem('userToken') } }
+
+// Check for user token existance before creating the authHeader
+const userToken = localStorage.getItem('userToken');
+const authHeader = userToken ? { headers: { 'Authorization': userToken } } : {};
 
 export async function signUp(user) {
-    const { data } = await axios.post('/api/users/signup', user)
+    const { data } = await axios.post('/api/users/signup', user, authHeader)
     return data
+
 }
 
 export async function logIn(user) {
