@@ -114,6 +114,26 @@ router.put('/:id', authMiddleware, async (req, res) => {
     }
 })
 
+// ADD Favorite Location ROUTE
+// Your Express route handling the addition of the favorite location
+router.post('/api/users/addToFavorites', async (req, res) => {
+    try {
+      const { address } = req.body;
+  
+      // Assuming you have the user object available in req.user after authentication
+      // Update the user's favoriteLocation array
+      req.user.favoriteLocation.push(address);
+      await req.user.save();
+  
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Error adding location to favorites:', error);
+      res.status(500).json({ success: false, error: 'Failed to add location to favorites.' });
+    }
+  });
+
+
+
 // DELETE Route - This route deletes a user document 
 // using the URL parameter (which will always be the comment document's ID)
 router.delete('/:id', authMiddleware, async (req, res) => {

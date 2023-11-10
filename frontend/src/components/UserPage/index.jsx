@@ -81,7 +81,7 @@ export default function UserPage() {
             .then(() => window.location.href = '/')
     }
 
-    // EDIT USER FORM / NAME EMAIL PASSWORD
+    // EDIT USER FORM / NAME EMAIL PASSWORD Location Notes Images
     // Render the form when showEditForm is true
     const editForm = showEditForm && (
         <form onSubmit={handleSubmit}
@@ -118,21 +118,12 @@ export default function UserPage() {
                 onChange={handleInputChange}
             />
             <br />
-                <input
+                <textarea
                 type="text"
                 name="favoriteLocation"
                 className="p-2 my-2 w-full bg-Neutral-700 text-white"
                 placeholder="Save your favorite location here!"
-                value={editFormData.favoriteLocation.locationName}
-                onChange={handleInputChange}
-            />
-            <br />
-            <input
-                type="text"
-                name="favoriteLocation"
-                className="p-2 my-2 w-full bg-Neutral-700 text-white"
-                placeholder="Save your favorite location here!"
-                value={editFormData.favoriteLocation.locationName}
+                value={editFormData.favoriteLocation}
                 onChange={handleInputChange}
             />
             <br />
@@ -192,7 +183,7 @@ export default function UserPage() {
                     <p className='text-xs'>Locations:</p>
                   </li>
                   <li>
-                  <p className='text-yello-500'>{ userData?.favoriteLocation?.locationName }</p>
+                  <p className='text-yellow-500'>{ userData?.favoriteLocation }</p>
                   </li>
                 </ul>
               </div>

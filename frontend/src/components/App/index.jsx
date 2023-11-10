@@ -188,6 +188,8 @@ return (
     {/* Routes */}
     <Routes>
       <Route path="/" element={<HomePage 
+        isAuthenticated={isAuthenticated}
+        setIsAuthenticated={setIsAuthenticated}
       // locationData={locationData} 
       // address={address} 
       // setLocationData={setLocationData}

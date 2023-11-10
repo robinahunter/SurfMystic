@@ -1,8 +1,9 @@
 require('dotenv').config()
 
+const { GOOGLE_API_KEY } = process.env;
+
 const googleConfig = {
-  googleApiKey: process.env.GOOGLE_API_KEY,
-  // Other Google-related configurations
+  googleApiKey: GOOGLE_API_KEY,
 };
 
 export default googleConfig;

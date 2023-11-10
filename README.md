@@ -144,3 +144,9 @@ https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API
 
 w3c
 https://w3c.github.io/geolocation-api/#position_interface
+
+Uploading images to AWS
+https://www.youtube.com/watch?v=vVBqEYNXxy8
+
+Upload files with Express and React to AWS S3 in 3 steps, by Fabiano Brito
+https://medium.com/@fabianopb/upload-files-with-node-and-react-to-aws-s3-in-3-steps-fdaa8581f2bd

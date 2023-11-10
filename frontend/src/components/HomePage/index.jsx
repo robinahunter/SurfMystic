@@ -1,16 +1,31 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import FavoriteLocation from "./../FavoriteLocation"
-// import { Link } from "react-router-dom";
+
+// import { useHistory } from "react-router-dom";
 
 // 20.8438, -156.6541
-export default function HomePage() {
+export default function HomePage(isAuthenticated, setIsAuthenticated) {
+
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
     const [locationData, setLocationData] = useState({})
     const [forecastData, setForecastData] = useState(null)
     const [address, setAddress] = useState('')
     console.log(address)
+    const api_key = import.meta.env.VITE_APP_API_KEY
+    // // Get the current date and time
+    // const currentDateTime = () => {
+    //     const [currentDateTime, setCurrentDateTime] = useState(new Date());
+        
+    //     useEffect(() => {
+    //         const intervalId = setInterval(() => {
+    //           setCurrentTime(new Date());
+    //         }, 1000); // Update every 1000 milliseconds (1 second)
+        
+    //         // Cleanup the interval when the component is unmounted
+    //         return () => clearInterval(intervalId);
+    //       }, []);
+    // console.log(currentDateTime)
 
     //function to find closest degree value in the degreeToCardinal object based on a given degree for wind direction. 
     function windDir(degrees) {
@@ -42,6 +57,9 @@ export default function HomePage() {
 
   return degreeToCardinal[closestMatch];
 }
+
+// Sort API day and time to find the current time
+
 
 useEffect(() => {
     // Fetch user's location using Geolocation API JavaScript
@@ -75,7 +93,7 @@ useEffect(() => {
           },
         });
       setForecastData(forecastResponse.data);
-      // console.log(forecastGridDataUrl)
+      console.log(forecastGridDataUrl)
     }
   } 
 
@@ -85,8 +103,7 @@ useEffect(() => {
 
     const searchAddress = async (event) => {
         if (event.key === 'Enter') {
-                const googleResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyDmhOqZdStgUNHSw1Nca_sW9P9Ckb_r81I`);
-                // ${import.meta.env.GOOGLE_API_KEY}
+                const googleResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${api_key}`)
                 const location = googleResponse.data.results[0]?.geometry?.location;
                 if (location) {
                     //Store the lat and long in variables and set the fixed decimal point to 4 max per the NWS API docs
@@ -133,6 +150,7 @@ useEffect(() => {
         searchAddress(e);
     }
     };
+
 
     return (
         <>
@@ -189,6 +207,10 @@ useEffect(() => {
                 ) : null}
             </div>
 
+            <div className="dayTime mt-2 text-center">
+  
+            </div>
+
             <div className="humidity mt-2 text-center">
                 {forecastData?.properties?.relativeHumidity?.values[0].value ? (
                 <h1 className="text-bold text-xl">Humidity: {forecastData.properties.relativeHumidity.values[0].value.toFixed()}%
@@ -199,7 +221,7 @@ useEffect(() => {
             <div className="weather mt-2 text-center">
                 {forecastData?.properties?.weather?.values[0]?.value[0].weather ? (
                 <h1 className="text-bold text-xl">
-                    {forecastData.properties.weather.values[0].value[0].weather}
+                    {forecastData.properties.weather.values[0].value[0].weather.toUpperCase()}
                 </h1>
                 ) : null}
             </div>
@@ -285,10 +307,25 @@ useEffect(() => {
                     </div>
                     {/* End wave data ---------- */}
                 </div>
-                <div className="buttons mx-auto pt-2">
-                    <p className="text-pink-400 cursor-pointer text-sm text-right">
-                    Add to Favorites
-                    </p>
+                {/* Favorit Toggle On/Off */}
+                <div className="buttons flex mx-auto pt-2">
+
+                    <svg
+                        // onClick={handleSvgClick}
+                        className={`w-6 h-6 ml-auto text-pink-400 cursor-pointer object 'fill-none'}`}
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 21 19"
+                        >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"
+                        />
+                    </svg>
+
                 </div>
             </div>
 
