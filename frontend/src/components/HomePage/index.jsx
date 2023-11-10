@@ -85,7 +85,7 @@ useEffect(() => {
 
     const searchAddress = async (event) => {
         if (event.key === 'Enter') {
-                const googleResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyDmhOqZdStgUNHSw1Nca_sW9P9Ckb_r81I`);
+                const googleResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${import.meta.env.GOOGLE_API_KEY}`);
                 // ${import.meta.env.GOOGLE_API_KEY}
                 const location = googleResponse.data.results[0]?.geometry?.location;
                 if (location) {
