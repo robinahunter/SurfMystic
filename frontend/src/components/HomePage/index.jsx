@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-// import { useHistory } from "react-router-dom";
-
 // 20.8438, -156.6541
 export default function HomePage(isAuthenticated, setIsAuthenticated) {
 
@@ -13,19 +11,6 @@ export default function HomePage(isAuthenticated, setIsAuthenticated) {
     const [address, setAddress] = useState('')
     console.log(address)
     const api_key = import.meta.env.VITE_APP_API_KEY
-    // // Get the current date and time
-    // const currentDateTime = () => {
-    //     const [currentDateTime, setCurrentDateTime] = useState(new Date());
-        
-    //     useEffect(() => {
-    //         const intervalId = setInterval(() => {
-    //           setCurrentTime(new Date());
-    //         }, 1000); // Update every 1000 milliseconds (1 second)
-        
-    //         // Cleanup the interval when the component is unmounted
-    //         return () => clearInterval(intervalId);
-    //       }, []);
-    // console.log(currentDateTime)
 
     //function to find closest degree value in the degreeToCardinal object based on a given degree for wind direction. 
     function windDir(degrees) {
@@ -57,9 +42,6 @@ export default function HomePage(isAuthenticated, setIsAuthenticated) {
 
   return degreeToCardinal[closestMatch];
 }
-
-// Sort API day and time to find the current time
-
 
 useEffect(() => {
     // Fetch user's location using Geolocation API JavaScript
@@ -347,7 +329,3 @@ useEffect(() => {
     )
 }
 
-// {`https://www.google.com/maps?q=${latitude},${longitude}&output=embed`}
-// {`https://www.google.com/maps?q=${address}&output=embed`}
-// {`https://www.google.com/maps/embed/v1/view?zoom=14&center=${latitude},${longitude}&key=${import.meta.env.GOOGLE_API_KEY}`}
-// {`https://www.google.com/maps/embed/v1/view?key=${import.meta.env.GOOGLE_API_KEY}&q=${latitude},${longitude}&zoom=15&maptype=roadmap`}

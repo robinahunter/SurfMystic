@@ -12,63 +12,6 @@ function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  // const [detailsData, setDetailsData] = useState({})
-  // const [address, setAddress] = useState('')
-  // const [locationData, setLocationData] = useState({})
-  // const [forecastData, setForecastData] = useState(null);
-  // const [latitude, setLatitude] = useState('');
-  // const [longitude, setLongitude] = useState('');
-
-  // useEffect(() => {
-  //   // Fetch user's location using Geolocation API JavaScript
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition((position) => {
-  //       setLatitude(position.coords.latitude);
-  //       setLongitude(position.coords.longitude);
-  //       console.log(latitude)
-  //       console.log(longitude)
-
-  //       // Fetch weather data for the user's location
-  //       const fetchUserLocation = async () => {
-  //         if (latitude && longitude) {
-  //           const response = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`);
-  //           setLocationData(response.data);
-
-  //           // Within the API, follow the path locationData.properties.relativeLocation.forecastGridData
-  //           // to obtain the URL for the forecast
-  //           const forecastGridDataUrl = response.data.properties?.forecastGridData;
-  //           if (forecastGridDataUrl) {
-  //             const forecastResponse = await axios.get(forecastGridDataUrl);
-  //             setForecastData(forecastResponse.data);
-  //           }
-  //         }
-  //       };
-
-  //       // Call the function to fetch data for the user's location
-  //       fetchUserLocation();
-  //     });
-  //   }
-  // }, [latitude, longitude, setLocationData, setForecastData]);
-  
-    // // (Update this with JavaScript Geolocation function to find users location)
-    // useEffect(() => {
-    //    // Fetch weather data for Honolulu, HI on mount (preload data before user selects a location)
-    //   const fetchHonoluluLocation = async () => {
-    //       const response = await axios.get('https://api.weather.gov/points/20.8318,-156.6689');
-    //       setLocationData(response.data);
-  
-    //   // Within the API follow the path locationData.properties.relativeLocation.forecastGridData to obtain url for forecast
-    //   const forecastGridDataUrl = response.data.properties?.forecastGridData;
-    //   if (forecastGridDataUrl) {
-    //       const forecastResponse = await axios.get(forecastGridDataUrl);
-    //       setForecastData(forecastResponse.data);
-    //       // console.log(forecastGridDataUrl)
-    //     }
-    //   } 
-    
-    //     // Call the function to fetch data for Honolulu on component mount
-    //     fetchHonoluluLocation();
-    //   }, []);
 
   // Function to toggle the menu open and close
   const toggleMenu = () => {
@@ -79,7 +22,7 @@ function App() {
   const handleLogout = () => {
     // Implement logic to clear user authentication, e.g., set isAuthenticated to false
     setIsAuthenticated(false);
-    // Clear user token from localStorage or send a logout API request if needed
+    // Clear user token from localStorage or send a logout API request
   }  
 
 //  Create the HTML using JSX for the App component
@@ -189,13 +132,7 @@ return (
     <Routes>
       <Route path="/" element={<HomePage 
         isAuthenticated={isAuthenticated}
-        setIsAuthenticated={setIsAuthenticated}
-      // locationData={locationData} 
-      // address={address} 
-      // setLocationData={setLocationData}
-      // setForecastData={setForecastData}
-      // setAddress={setAddress} 
-      // forecastData={forecastData}     
+        setIsAuthenticated={setIsAuthenticated}  
       />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/auth/:formType" element={<AuthFormPage setIsAuthenticated = {setIsAuthenticated} />} />

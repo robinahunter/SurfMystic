@@ -8,7 +8,7 @@ export default function NotFoundPage() {
                 <main className="flex h-[49vh] w-full flex-col justify-center items-center bg-black rounded-md">
 
                     <div className="">
-                        <p className="text-4xl text-center">Oops! We can't find that page.</p>
+                        <p className="text-xl text-center">Oops! We can't find that page.</p>
                     </div>
                     <div>
                         <Link to="/">

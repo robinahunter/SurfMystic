@@ -45,8 +45,6 @@ export default function AuthFormPage({setIsAuthenticated}) {
           navigate(`/user/${userId}`);
       }
       // redirect to the user page after signing/logging in
-      
-
   }
   
   return (
