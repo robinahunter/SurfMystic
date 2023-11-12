@@ -133,199 +133,202 @@ useEffect(() => {
     }
     };
 
-
     return (
         <>
     {/* Title and Search Bar Function */}
-        <div className='app mx-auto'>
-        <div className='mx-auto text-center w-[200px]'>
-            {/* <h1 className='mx-auto mb-4'>Surf + Mystic</h1> */}
-            <div className="search input flex rounded-lg justify-center">
-                <input 
-                value={address}
-                className='input bg-neutral-700 border border-neutral-200 focus:outline-pink-200 m-2 p-4 rounded-lg'
-                onChange={(event) => setAddress(event.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder='Enter Location...'
-                type="text" />
-            </div>
+        <div className="largeScreen my-0 mx-auto max-w-5xl md:flex md:justify-between md:items-center">
+            <div className="weather md:w-[50vw] md:inline-block">
+                    <div className="app mx-auto">
+                        <div className="mx-auto text-center">
+                            <div className="search input flex rounded-lg justify-center">
+                                <input 
+                                value={address}
+                                className="input bg-neutral-700 border border-neutral-200 focus:outline-pink-200 m-2 p-4 rounded-lg"
+                                onChange={(event) => setAddress(event.target.value)}
+                                onKeyDown={handleKeyDown}
+                                placeholder="Enter Location..."
+                                type="text" />
+                            </div>
 
-        </div>
-        </div>
-        <div>
-            <div className='container mx-auto w-[50vw] justify-center'>
-                <div className="top">
-                    <div className="address">
-                        {/* Pull name information from first NWS API (saved to locationData) */}
-                    {locationData?.properties?.relativeLocation?.properties?.city && locationData?.properties?.relativeLocation?.properties?.state ? (
-                    <h1 className='text-2xl text-center'>
-                        {locationData.properties.relativeLocation.properties.city}, {locationData.properties.relativeLocation.properties.state}
-                    </h1>
-                    ) : null}
-
-                    </div>
-                </div>
-            </div>
-        </div>
-         {/* Pull forecast information from second NWS API (saved to forecastData)*/}       
-
-        <div className="bottom p-2 mx-auto justify-center">
-
-            <div className="temp mt-2 text-center">
-                {forecastData?.properties?.temperature?.values[0].value ? (
-                <h1 className="text-bold text-5xl text-yellow-500 ">
-                    {(forecastData.properties.temperature.values[0].value * 9/5 + 32).toFixed()}°F
-                </h1>
-                ) : (
-                'No data'
-                )}
-            </div>
-
-            <div className="maxMinTemp mt-2 text-center">
-                {forecastData?.properties?.maxTemperature?.values[0].value && forecastData?.properties?.minTemperature?.values[0].value ? (
-                <h1 className="text-bold text-xl text-cyan-400">
-                    <span className='text-pink-500'>{(forecastData.properties.maxTemperature.values[0].value * 9/5 + 32).toFixed()}°F High</span>  <span className='text-white'>/</span> {(forecastData.properties.minTemperature.values[0].value * 9/5 + 32).toFixed()}°F Low
-                </h1>
-                ) : null}
-            </div>
-
-            <div className="dayTime mt-2 text-center">
-  
-            </div>
-
-            <div className="humidity mt-2 text-center">
-                {forecastData?.properties?.relativeHumidity?.values[0].value ? (
-                <h1 className="text-bold text-xl">Humidity: {forecastData.properties.relativeHumidity.values[0].value.toFixed()}%
-                </h1>
-                ) : null}
-            </div>
-
-            <div className="weather mt-2 text-center">
-                {forecastData?.properties?.weather?.values[0]?.value[0].weather ? (
-                <h1 className="text-bold text-xl">
-                    {forecastData.properties.weather.values[0].value[0].weather.toUpperCase()}
-                </h1>
-                ) : null}
-            </div>
-
-            <div className="chanceOfRain mt-2 text-center">
-                {forecastData?.properties?.probabilityOfPrecipitation?.values[0].value ? (
-                <h1 className="text-bold text-xl">
-                    Precipitation: {forecastData.properties.probabilityOfPrecipitation.values[0].value}%
-                </h1>
-                ) : null}
-            </div>
-
-            <div className="windWave mx-auto w-[320px]">
-                <div className='flex mx-auto border rounded-lg mt-4 w-[320px]'>
-                    {/* Wind data ------------ */}
-                    <div className='windData text-right w-[50vw]'>
-                        <p className='mt-2 mr-4 text-pink-400'>WIND</p>
-                        <div className="windDirection mt-2 mr-4 text-right">
-                            {forecastData?.properties?.windDirection?.values[0].value ? (
-                            <p className="text-bold">
-                                Direction: {windDir(forecastData.properties.windDirection.values[0].value)} ({forecastData.properties.windDirection.values[0].value}°)
-                            </p>
-                            ) : null}
-                        </div>
-
-                        <div className="windSpeed mr-4 text-right">
-                            {forecastData?.properties?.windSpeed?.values[0].value ? (
-                            <p className="text-bold ">
-                                Speed: {(forecastData.properties.windSpeed.values[0].value * 0.621371192).toFixed()} MPH
-                            </p>
-                            ) : null}
-                        </div>
-
-                        <div className="windGust mr-4 text-right">
-                            {forecastData?.properties?.windGust?.values[0].value ? (
-                            <p className="text-bold">
-                                Gusts: {(forecastData.properties.windGust.values[0].value * 0.621371192).toFixed()} MPH
-                            </p>
-                            ) : null}
                         </div>
                     </div>
-                    {/* End wind data ---------- */}
+                    <div>
+                        <div className="container mx-auto justify-center">
+                            <div className="top">
+                                <div className="address">
+                                    {/* Pull name information from first NWS API (saved to locationData) */}
+                                {locationData?.properties?.relativeLocation?.properties?.city && locationData?.properties?.relativeLocation?.properties?.state ? (
+                                <h1 className='text-2xl text-center'>
+                                    {locationData.properties.relativeLocation.properties.city}, {locationData.properties.relativeLocation.properties.state}
+                                </h1>
+                                ) : null}
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Pull forecast information from second NWS API (saved to forecastData)*/}       
 
-                    {/* Wave data ---------- */}
-                    <div className='waveData mx-auto w-[50vw]'>
-                    <p className='mt-2 ml-4 text-emerald-400'>WAVES</p>
-                        <div className="waveHeight mt-2 ml-4 ext-left">
-                            {forecastData?.properties?.waveHeight?.values[0].value ? (
-                            <p className="text-bold">
-                                Height: {(forecastData.properties.waveHeight.values[0].value * 3.28084).toFixed()}'
-                            </p>
+                    <div className="bottom p-2 mx-auto justify-center">
+
+                        <div className="temp mt-2 text-center">
+                            {forecastData?.properties?.temperature?.values[0].value ? (
+                            <h1 className="text-bold text-5xl text-yellow-500 ">
+                                {(forecastData.properties.temperature.values[0].value * 9/5 + 32).toFixed()}°F
+                            </h1>
                             ) : (
-                            'No Wave Data'
+                            'No data'
                             )}
                         </div>
 
-                        <div className="wavePeriod ml-4 ext-left">
-                            {forecastData?.properties?.wavePeriod?.values[0].value ? (
-                            <p className="text-bold">
-                                Period: {forecastData.properties.wavePeriod.values[0].value.toFixed()} sec
-                            </p>
+                        <div className="maxMinTemp mt-2 text-center">
+                            {forecastData?.properties?.maxTemperature?.values[0].value && forecastData?.properties?.minTemperature?.values[0].value ? (
+                            <h1 className="text-bold text-xl text-cyan-400">
+                                <span className='text-pink-500'>{(forecastData.properties.maxTemperature.values[0].value * 9/5 + 32).toFixed()}°F High</span>  <span className='text-white'>/</span> {(forecastData.properties.minTemperature.values[0].value * 9/5 + 32).toFixed()}°F Low
+                            </h1>
                             ) : null}
                         </div>
 
-                        <div className="waveDirection ml-4 text-left">
-                            {forecastData?.properties?.waveDirection?.values[0] ? (
-                            <p className="text-bold">
-                                Wave Direction: {forecastData.properties.waveDirection.values[0].toFixed()} degrees?
-                            </p>
+                        <div className="dayTime mt-2 text-center">
+            
+                        </div>
+
+                        <div className="humidity mt-2 text-center">
+                            {forecastData?.properties?.relativeHumidity?.values[0].value ? (
+                            <h1 className="text-bold text-xl">Humidity: {forecastData.properties.relativeHumidity.values[0].value.toFixed()}%
+                            </h1>
                             ) : null}
                         </div>
 
-                        <div className="primarySwellHeight mb-3 ml-4 text-left">
-                            {forecastData?.properties?.primarySwellHeight?.values[0].value !== undefined ? (
-                            <p className="text-bold">
-                                Swell: {(forecastData.properties.primarySwellHeight.values[0].value * 3.28084).toFixed(2)}'
-                            </p>
-                            ) : (
-                            <p>No Swell</p>
-                            )}
+                        <div className="weather mt-2 text-center">
+                            {forecastData?.properties?.weather?.values[0]?.value[0].weather ? (
+                            <h1 className="text-bold text-xl">
+                                {forecastData.properties.weather.values[0].value[0].weather.toUpperCase()}
+                            </h1>
+                            ) : null}
+                        </div>
+
+                        <div className="chanceOfRain mt-2 text-center">
+                            {forecastData?.properties?.probabilityOfPrecipitation?.values[0].value ? (
+                            <h1 className="text-bold text-xl">
+                                Precipitation: {forecastData.properties.probabilityOfPrecipitation.values[0].value}%
+                            </h1>
+                            ) : null}
+                        </div>
+
+                        <div className="windWave mx-auto w-[320px]">
+                            <div className='flex mx-auto border rounded-lg mt-4 w-[320px]'>
+                                {/* Wind data ------------ */}
+                                <div className='windData text-right w-[50vw]'>
+                                    <p className='mt-2 mr-4 text-pink-400'>WIND</p>
+                                    <div className="windDirection mt-2 mr-4 text-right">
+                                        {forecastData?.properties?.windDirection?.values[0].value ? (
+                                        <p className="text-bold">
+                                            Direction: {windDir(forecastData.properties.windDirection.values[0].value)} ({forecastData.properties.windDirection.values[0].value}°)
+                                        </p>
+                                        ) : null}
+                                    </div>
+
+                                    <div className="windSpeed mr-4 text-right">
+                                        {forecastData?.properties?.windSpeed?.values[0].value ? (
+                                        <p className="text-bold ">
+                                            Speed: {(forecastData.properties.windSpeed.values[0].value * 0.621371192).toFixed()} MPH
+                                        </p>
+                                        ) : null}
+                                    </div>
+
+                                    <div className="windGust mr-4 text-right">
+                                        {forecastData?.properties?.windGust?.values[0].value ? (
+                                        <p className="text-bold">
+                                            Gusts: {(forecastData.properties.windGust.values[0].value * 0.621371192).toFixed()} MPH
+                                        </p>
+                                        ) : null}
+                                    </div>
+                                </div>
+                                {/* End wind data ---------- */}
+
+
+                                {/* Wave data ---------- */}
+                                <div className='waveData mx-auto w-[50vw]'>
+                                <p className='mt-2 ml-4 text-emerald-400'>WAVES</p>
+                                    <div className="waveHeight mt-2 ml-4 ext-left">
+                                        {forecastData?.properties?.waveHeight?.values[0].value ? (
+                                        <p className="text-bold">
+                                            Height: {(forecastData.properties.waveHeight.values[0].value * 3.28084).toFixed()}'
+                                        </p>
+                                        ) : (
+                                        'No Wave Data'
+                                        )}
+                                    </div>
+
+                                    <div className="wavePeriod ml-4 ext-left">
+                                        {forecastData?.properties?.wavePeriod?.values[0].value ? (
+                                        <p className="text-bold">
+                                            Period: {forecastData.properties.wavePeriod.values[0].value.toFixed()} sec
+                                        </p>
+                                        ) : null}
+                                    </div>
+
+                                    <div className="waveDirection ml-4 text-left">
+                                        {forecastData?.properties?.waveDirection?.values[0] ? (
+                                        <p className="text-bold">
+                                            Wave Direction: {forecastData.properties.waveDirection.values[0].toFixed()} degrees?
+                                        </p>
+                                        ) : null}
+                                    </div>
+
+                                    <div className="primarySwellHeight mb-3 ml-4 text-left">
+                                        {forecastData?.properties?.primarySwellHeight?.values[0].value !== undefined ? (
+                                        <p className="text-bold">
+                                            Swell: {(forecastData.properties.primarySwellHeight.values[0].value * 3.28084).toFixed(2)}'
+                                        </p>
+                                        ) : (
+                                        <p>No Swell</p>
+                                        )}
+                                    </div>
+                                </div>
+                                {/* End wave data ---------- */}
+                            </div>
+                            {/* Favorit Toggle On/Off */}
+                            <div className="buttons flex mx-auto pt-2">
+
+                                <svg
+                                    // onClick={handleSvgClick}
+                                    className={`w-6 h-6 ml-auto text-pink-400 cursor-pointer object 'fill-none'}`}
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 21 19"
+                                    >
+                                    <path
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"
+                                    />
+                                </svg>
+
+                            </div>
                         </div>
                     </div>
-                    {/* End wave data ---------- */}
+                </div>  
+                {/* Google Map  */}
+                <div className="googleMap mx-auto mt-2 md:w-[50vw] md:h-[50vh] md:inline-block md:justify-center">
+                    <div className=" text-white">
+                        <iframe
+                            className="w-full h-[45vh] aspect-video rounded-lg p-5"
+                            src={`https://www.google.com/maps?q=${latitude},${longitude}&output=embed`}
+                            width="auto"
+                            height="auto"
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="Google Maps">
+                        </iframe>
+                    </div>
                 </div>
-                {/* Favorit Toggle On/Off */}
-                <div className="buttons flex mx-auto pt-2">
-
-                    <svg
-                        // onClick={handleSvgClick}
-                        className={`w-6 h-6 ml-auto text-pink-400 cursor-pointer object 'fill-none'}`}
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 21 19"
-                        >
-                        <path
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"
-                        />
-                    </svg>
-
-                </div>
-            </div>
-
-            <div className='googleMap mt-2'>
-                <div className="text-left ml-10 mr-10 text-white p-2 text-m">
-                    <iframe
-                        className="w-full aspect-video rounded-lg"
-                        src={`https://www.google.com/maps?q=${latitude},${longitude}&output=embed`}
-                        width="275"
-                        height="300"
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Google Maps">
-                    </iframe>
-                </div>
-            </div>
-        </div>         
-    </>
+                {/* End Google Map */}
+            </div>       
+        </>
     )
 }
 
