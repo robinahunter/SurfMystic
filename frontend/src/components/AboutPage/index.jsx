@@ -4,7 +4,7 @@ export default function AboutPage() {
       <div className="mt-0 mx-auto w-[75vw]">
         <h1 className="text-white mx-auto">Our Story</h1>
         {/* Photo by Tyler Nix, Unsplash */}
-        <img src="/src/assets/tyler-nix-unsplash-banner.jpg" className="mx-auto max-w-6xl w-[80vw] rounded-lg" alt="tyler-nix-unsplash" />
+        <img src="https://i.postimg.cc/gJk87cJ9/tyler-nix-unsplash-banner.jpg" className="mx-auto max-w-6xl w-[80vw] rounded-lg" alt="tyler-nix-unsplash" />
         <br />
         <h2 className="text-white mx-auto text-3xl">  
           Know Before You Go! 
