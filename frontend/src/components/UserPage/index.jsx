@@ -1,21 +1,19 @@
-import AuthFormPage from '../AuthFormPage'
+
 import React, { useState, useEffect } from 'react'
-import deleteUser from '../../../utils/backend'
+import { deleteUser, updateUser } from '../../../utils/backend'
 import { useParams } from "react-router-dom"
 import noImage from '../../assets/NoImage.png' 
-import axios from 'axios';
 
 export default function UserPage() {
   const { id } = useParams()
-  const [userData, setUserData]=useState(null)
   const [showEditForm, setShowEditForm] = useState(false)
   const [editFormData, setEditFormData] = useState({
       name: '',
       email: '',
       password: '',
-      favoriteLocation: [],
-      note: [],
-      image: []
+      favoriteLocation: '',
+      note: '',
+      image: ''
   })
 
     useEffect(()=> {
@@ -25,24 +23,18 @@ export default function UserPage() {
         })
         .then((res) => res.json())
         .then((data) => {
-            setUserData(data)
-            // Update the editFormData when userData is available
+   
+            // Update the editFormData when editFormData is available
             setEditFormData({
+              ...editFormData,
                 name: data.name,
                 email: data.email,
                 password: data.password,
-                // favoriteLocation: editFormData.favoriteLocation,
-                favoriteLocation: {
-                  locationName: "Don't forget to insert here", // Name of the location 
-                  locationUrl: "Don't forget to insert here", // Code or identifier for the location /NWS location code
-                }, 
-                note: editFormData.note,
-                image: editFormData.image,
                 })
             })
         .catch((err) => console.error(err))
-    },[id])
-    // console.log(userData)
+    },[])
+    // console.log(editFormData)
 
     // Update the form fields as the user types
     function handleInputChange(event) {
@@ -55,26 +47,11 @@ export default function UserPage() {
     // Execute form submission logic
     function handleSubmit(event) {
         event.preventDefault()
-
-   
-    // Update user data
-    axios.put(`/api/users/${id}`, editFormData, { 
-      headers:{
-        "Authorization": localStorage.getItem('userToken')
-      }
-    })
-    .then((response) => {
-        setUserData(response.data)
+        updateUser(editFormData, id)
+        setEditFormData(editFormData)
         setShowEditForm(false)
-    })
-    .catch((error) => {
-        console.error('Failed to update user data:', error)
-        // Handle the error as needed, e.g., display an error message to the user
-        })
-        setShowEditForm(false) 
     }
-
-
+    
     // Delete a user
     function handleDelete() {
         deleteUser(id)
@@ -90,7 +67,6 @@ export default function UserPage() {
                 id='name'
                 name="name"
                 className="px-2 py-1 w-full bg-Neutral-700 text-white"
-                placeholder={userData?.name}
                 value={editFormData.name}
                 onChange={handleInputChange}
             />
@@ -159,7 +135,7 @@ export default function UserPage() {
               <br /><br />
               <div className="name editUser flex">
                 <div className="userName w-[50vw]">
-                  <h2 className="text-white mx-auto text-3xl">Hello, <span className='text-pink-400'>{ userData?.name }</span></h2>
+                  <h2 className="text-white mx-auto text-3xl">Hello, <span className='text-pink-400'>{ editFormData?.name }</span></h2>
                 </div>
                 <div className="buttons text-right w-[50vw]">
                   <p onClick={() => { setShowEditForm(true) }}
@@ -183,7 +159,7 @@ export default function UserPage() {
                     <p className='text-xs'>Locations:</p>
                   </li>
                   <li>
-                  <p className='text-yellow-500'>{ userData?.favoriteLocation }</p>
+                  <p className='text-yellow-500'>{ editFormData?.favoriteLocation }</p>
                   </li>
                 </ul>
               </div>
@@ -194,7 +170,7 @@ export default function UserPage() {
                     <p className='text-xs pt-2'>Notes:</p>
                   </li>
                   <li>
-                  <p className='text-cyan-400'>{ userData?.note }</p>
+                  <p className='text-cyan-400'>{ editFormData?.note }</p>
                   </li>
                 </ul>
               </div>
@@ -206,8 +182,8 @@ export default function UserPage() {
                   </li>
                   <li className='w-[300px] pt-2'>
                     {/* Check if image is present, if it is truthy render img element */}
-                  { userData?.image && userData.image !== '' ? ( 
-                    <img className='object-cover rounded-lg shadow-lg shadow-pink-200/25 hover:shadow-pink-500/25' src={userData.image} />
+                  { editFormData?.image && editFormData.image !== '' ? ( 
+                    <img className='object-cover rounded-lg shadow-lg shadow-pink-200/25 hover:shadow-pink-500/25' src={editFormData.image} />
                   ) : (
                     <img className='object-fill' src={noImage} alt="No Image" />
                   )}
