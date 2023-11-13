@@ -136,8 +136,8 @@ useEffect(() => {
     return (
         <>
     {/* Title and Search Bar Function */}
-        <div className="largeScreen my-0 mx-auto max-w-5xl md:flex md:justify-between md:items-center">
-            <div className="weather md:w-[50vw] md:inline-block">
+        <div className="largeScreen my-0 mx-auto max-w-5xl md:flex md:justify-between md:items-center md:w-[75vw] md:h-[80vh]">
+            <div className="weatherBox md:w-[50vw] md:inline-block">
                     <div className="app mx-auto">
                         <div className="mx-auto text-center">
                             <div className="search input flex rounded-lg justify-center">
@@ -313,10 +313,10 @@ useEffect(() => {
                     </div>
                 </div>  
                 {/* Google Map  */}
-                <div className="googleMap mx-auto mt-2 md:w-[50vw] md:h-[50vh] md:inline-block md:justify-center">
-                    <div className=" text-white">
+                <div className="googleMap mx-auto mt-2 md:w-[50vw] md:h-[75vh] md:inline-block md:justify-center">
+                    <div className="text-white w-full h-full justify-center p-5">
                         <iframe
-                            className="w-full h-[45vh] aspect-video rounded-lg p-5"
+                            className="aspect-video w-full h-full justify-center rounded-lg"
                             src={`https://www.google.com/maps?q=${latitude},${longitude}&output=embed`}
                             width="auto"
                             height="auto"

@@ -134,7 +134,7 @@ export default function UserPage() {
 
     return (
         <>
-            <div className="userSection w-[75vw] h-[100vh] mx-auto">
+            <div className="userSection w-[75vw] h-[80vh] mx-auto">
               <br /><br />
               <div className="name editUser flex">
                 <div className="userName w-[50vw]">
