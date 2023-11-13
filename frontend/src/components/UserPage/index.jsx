@@ -19,7 +19,7 @@ export default function UserPage() {
   })
 
     useEffect(()=> {
-    fetch(`https://surfmystic-2ccf2cdfa89e.herokuapp.com/api/users/${id}`, {
+    fetch(`/api/users/${id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         })
@@ -58,7 +58,7 @@ export default function UserPage() {
 
    
     // Update user data
-    axios.put(`https://surfmystic-2ccf2cdfa89e.herokuapp.com/api/users/${id}`, editFormData, { 
+    axios.put(`/api/users/${id}`, editFormData, { 
       headers:{
         "Authorization": localStorage.getItem('userToken')
       }
