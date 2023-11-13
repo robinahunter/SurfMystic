@@ -30,6 +30,9 @@ export default function UserPage() {
                 name: data.name,
                 email: data.email,
                 password: data.password,
+                favoriteLocation: data.favoriteLocation,
+                note: data.note,
+                image: data.image
                 })
             })
         .catch((err) => console.error(err))
@@ -90,7 +93,7 @@ export default function UserPage() {
                 minLength="6"
                 required
                 placeholder="Password"
-                value={editFormData.email}
+                value={editFormData.password}
                 onChange={handleInputChange}
             />
             <br />
