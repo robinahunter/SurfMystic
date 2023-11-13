@@ -5,10 +5,7 @@
   "scripts": {
     "frontend": "vite",
     "backend": "nodemon backend/server.js",
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "start": "vite build && node backend/server.js"   
   },
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.3.41",
@@ -18,9 +15,7 @@
     "file-type": "^18.6.0",
     "multiparty": "^4.2.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
+    "react-dom": "^18.2.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
