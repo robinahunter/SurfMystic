@@ -33,7 +33,7 @@ return (
       <nav className="flex mx-auto justify-between items-center">
         {/* Hamburger Menu Start */}
         <div className="flex w-[90vw] justify-between items-center md:hidden">
-            <Link to="/">
+            <Link to="/" onClick={toggleMenu}>
               <div className="flex">
                 <ul className="pl-4">
                   <li className="w-12 justify-between" >
@@ -60,7 +60,7 @@ return (
         <div className="block lg:block bg-neutral-800 mt-1 py-1 pb-4 lg:flex lg:items-center lg:w-auto">
           {/* Full NavBar Start */}
           <div className="logo hidden lg:block">
-            <Link to="/">
+            <Link to="/" onClick={toggleMenu}>
                 <div className="flex">
                   <ul className="pl-4">
                     <li className="w-12 justify-between" >
@@ -76,7 +76,7 @@ return (
             <div className="flex-grow">
               <ul className="flex justify-center text-white border-b-2 border-b-cyan-400 text-sm font-medium">
                 <li>
-                  <Link to="/">
+                  <Link to="/" onClick={toggleMenu}>
                     <p className="p-2 text-white hover:text-cyan-200">home</p>
                   </Link>
                 </li>
@@ -85,7 +85,7 @@ return (
           <div className="flex-grow">
               <ul className="flex justify-center text-white border-b-2 border-b-emerald-400 text-sm font-medium">
                 <li>
-                  <Link to="/about">
+                  <Link to="/about" onClick={toggleMenu}>
                     <p className="p-2 text-white hover:text-emerald-200">about</p>
                   </Link>
                 </li>
@@ -98,7 +98,7 @@ return (
               <div className="flex-grow">
                 <ul className="flex justify-center text-white border-b-2 border-b-orange-600 text-sm font-medium">
                   <li>
-                    <Link to="/logout" onClick={handleLogout}>
+                    <Link to="/logout" onClick={() => { handleLogout(); toggleMenu(); }}>
                       <p className="p-2 text-white hover:text-orange-200">sign out</p>
                     </Link>
                   </li>
@@ -119,7 +119,7 @@ return (
               <div className="flex-grow">
                 <ul className="flex justify-center text-white border-b-2 border-b-orange-500 text-sm font-medium">
                   <li>
-                    <Link to="/auth/signup">
+                    <Link to="/auth/signup" onClick={toggleMenu}>
                       <p className="p-2 text-white hover:text-orange-200">sign up</p>
                     </Link>
                   </li>
@@ -128,7 +128,7 @@ return (
               <div className="flex-grow">
                 <ul className="flex justify-center text-white border-b-2 border-b-pink-600 text-sm font-medium">
                   <li>
-                    <Link to="/auth/login">
+                    <Link to="/auth/login" onClick={toggleMenu}>
                       <p className="p-2 text-white hover:text-pink-200">log in</p>
                     </Link>
                   </li>

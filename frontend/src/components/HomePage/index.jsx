@@ -313,7 +313,7 @@ useEffect(() => {
                     </div>
                 </div>  
                 {/* Google Map  */}
-                <div className="googleMap mx-auto mt-2 md:w-[50vw] md:h-[75vh] md:inline-block md:justify-center">
+                <div className="googleMap mx-auto mt-2 md:w-[50vw] md:h-[50vh] md:inline-block md:justify-center">
                     <div className="text-white w-full h-full justify-center p-5">
                         <iframe
                             className="aspect-video w-full h-full justify-center rounded-lg"
