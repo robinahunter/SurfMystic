@@ -204,15 +204,7 @@ useEffect(() => {
 
                         <div className="humidity mt-2 text-center">
                             {forecastData?.properties?.relativeHumidity?.values[0].value ? (
-                            <h1 className="text-bold text-xl">Humidity: {forecastData.properties.relativeHumidity.values[0].value.toFixed()}%
-                            </h1>
-                            ) : null}
-                        </div>
-
-                        <div className="weather mt-2 text-center">
-                            {forecastData?.properties?.weather?.values[0]?.value[0].weather ? (
-                            <h1 className="text-bold text-xl">
-                                {forecastData.properties.weather.values[0].value[0].weather.toUpperCase()}
+                            <h1 className="text-bold text-sm">Humidity: {forecastData.properties.relativeHumidity.values[0].value.toFixed()}%
                             </h1>
                             ) : null}
                         </div>
@@ -227,7 +219,7 @@ useEffect(() => {
                         <div className="chanceOfRain mt-2 text-center">
                             {forecastData?.properties?.quantitativePrecipitation?.values[0].value ? (
                             <h1 className="text-bold text-sm">
-                                Rain Est: {(forecastData.properties.quantitativePrecipitation.values[0].value * 0.0393701).toFixed()}inch
+                                Rain Est: {(forecastData.properties.quantitativePrecipitation.values[0].value * 0.0393701).toFixed(2)} inch
                             </h1>
                             ) : null}
                         </div>
