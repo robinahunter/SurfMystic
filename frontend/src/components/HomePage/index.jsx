@@ -216,10 +216,10 @@ useEffect(() => {
                             </h1>
                             ) : null}
                         </div>
-                        <div className="chanceOfRain mt-2 text-center">
+                        <div className="volumeOfRain mt-2 text-center">
                             {forecastData?.properties?.quantitativePrecipitation?.values[0].value ? (
                             <h1 className="text-bold text-sm">
-                                Rain Est: {(forecastData.properties.quantitativePrecipitation.values[0].value * 0.0393701).toFixed(2)} inch
+                                Amount of Rain: {(forecastData.properties.quantitativePrecipitation.values[0].value * 0.0393701).toFixed(2)} inch
                             </h1>
                             ) : null}
                         </div>
@@ -230,7 +230,7 @@ useEffect(() => {
                             </h1>
                             ) : null}
                         </div>
-                        <div className="windWave mx-auto w-[320px]">
+                        <div className="windDirection mx-auto w-[320px]">
                             <div className='flex mx-auto border rounded-lg mt-4 w-[320px]'>
                                 {/* Wind data ------------ */}
                                 <div className='windData text-right w-[50vw]'>
@@ -238,7 +238,7 @@ useEffect(() => {
                                     <div className="windDirection mt-2 mr-4 text-right">
                                         {forecastData?.properties?.windDirection?.values[0].value ? (
                                         <p className="text-bold">
-                                            Direction: {windDir(forecastData.properties.windDirection.values[0].value)} ({forecastData.properties.windDirection.values[0].value}°)
+                                            Dir: {windDir(forecastData.properties.windDirection.values[0].value)} ({forecastData.properties.windDirection.values[0].value}°)
                                         </p>
                                         ) : null}
                                     </div>

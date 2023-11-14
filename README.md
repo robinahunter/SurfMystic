@@ -26,9 +26,10 @@ The user model supports full CRUD (Create, Read, Update, Delete) functionality f
 [![7](https://i.postimg.cc/qvMfYSkW/CAPSTONE-WIREFRAME-robin7.png)](https://postimg.cc/sv80GnGJ)
 
 ## GitHub Repository
+https://github.com/robinahunter/SurfMystic.git
 
-## https://github.com/robinahunter/SurfMystic.git
-
+## Hosted Site on Heroku
+https://surfmystic-2ccf2cdfa89e.herokuapp.com/
 
 ## User Stories
 
