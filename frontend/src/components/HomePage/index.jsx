@@ -43,17 +43,20 @@ export default function HomePage(isAuthenticated, setIsAuthenticated) {
   return degreeToCardinal[closestMatch];
 }
 
-useEffect(() => {
+const fetchUserLocation = () => {
+// useEffect(() => {
     // Fetch user's location using Geolocation API JavaScript
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setLatitude(position.coords.latitude.toFixed(4));
         setLongitude(position.coords.longitude.toFixed(4));
-        console.log(latitude)
-        console.log(longitude)
-        console.log(position)
     });
-    }
+  }
+}; 
+
+useEffect(() => {
+    // Fetch user's location using Geolocation API JavaScript
+    fetchUserLocation();
 }, []); 
 
 useEffect(() => {
@@ -127,12 +130,13 @@ useEffect(() => {
     }
 
     const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        searchAddress(e);
-    }
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            searchAddress(e);
+            setAddress('');
+        }
     };
-
+    
     return (
         <>
     {/* Title and Search Bar Function */}
@@ -140,7 +144,7 @@ useEffect(() => {
             <div className="weatherBox md:w-[50vw] md:inline-block">
                     <div className="app mx-auto">
                         <div className="mx-auto text-center">
-                            <div className="search input flex rounded-lg justify-center">
+                            <div className="search input rounded-lg justify-center inline-block">
                                 <input 
                                 value={address}
                                 className="input bg-neutral-700 border border-neutral-200 focus:outline-pink-200 m-2 p-4 rounded-lg"
@@ -149,7 +153,12 @@ useEffect(() => {
                                 placeholder="Enter Location..."
                                 type="text" />
                             </div>
-
+                            <div className="locationIcon inline-block justified-center cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#34d399" onClick={fetchUserLocation} className="w-8 h-8 cursor-pointer hover:stroke-emerald-200">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -294,13 +303,13 @@ useEffect(() => {
 
                                 <svg
                                     // onClick={handleSvgClick}
-                                    className={`w-6 h-6 ml-auto text-pink-400 cursor-pointer object 'fill-none'}`}
+                                    className={`w-6 h-6 ml-auto text-pink-400 cursor-pointer object hover:fill-pink-400`}
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 21 19"
                                     >
                                     <path
-                                        stroke="currentColor"
+                                        stroke="#f472b6"
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         stroke-width="2"
