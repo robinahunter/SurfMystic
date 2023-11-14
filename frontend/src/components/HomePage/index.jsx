@@ -219,12 +219,25 @@ useEffect(() => {
 
                         <div className="chanceOfRain mt-2 text-center">
                             {forecastData?.properties?.probabilityOfPrecipitation?.values[0].value ? (
-                            <h1 className="text-bold text-xl">
-                                Precipitation: {forecastData.properties.probabilityOfPrecipitation.values[0].value}%
+                            <h1 className="text-bold text-sm">
+                                Chance of Rain: {forecastData.properties.probabilityOfPrecipitation.values[0].value}%
                             </h1>
                             ) : null}
                         </div>
-
+                        <div className="chanceOfRain mt-2 text-center">
+                            {forecastData?.properties?.quantitativePrecipitation?.values[0].value ? (
+                            <h1 className="text-bold text-sm">
+                                Rain Est: {(forecastData.properties.quantitativePrecipitation.values[0].value * 0.0393701).toFixed()}inch
+                            </h1>
+                            ) : null}
+                        </div>
+                        <div className="elevation mt-2 text-center">
+                            {forecastData?.properties?.elevation?.value ? (
+                            <h1 className="text-bold text-sm">
+                                Elevation: {(forecastData.properties.elevation.value  * 3.28084).toFixed()}'
+                            </h1>
+                            ) : null}
+                        </div>
                         <div className="windWave mx-auto w-[320px]">
                             <div className='flex mx-auto border rounded-lg mt-4 w-[320px]'>
                                 {/* Wind data ------------ */}
