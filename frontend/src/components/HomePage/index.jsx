@@ -62,7 +62,7 @@ useEffect(() => {
 useEffect(() => {
    // Fetch weather data for Honolulu, HI on mount (preload data before user selects a location)
   const fetchDefaultLocation = async () => {
-      const response = await axios.get(`https://api.weather.gov/points/${21.279},${157.829}`, {
+      const response = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`, {
       headers: {
         'User-Agent': 'auth, r@r-hunter.com',
       },
@@ -84,7 +84,7 @@ useEffect(() => {
 
     // Call the function to fetch data for Honolulu on component mount
     fetchDefaultLocation();
-  }, [latitude, longitude]);
+  }, [21.279, 157.829]);
 
     const searchAddress = async (event) => {
         if (event.key === 'Enter') {
