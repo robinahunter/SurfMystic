@@ -84,7 +84,7 @@ useEffect(() => {
 
     // Call the function to fetch data for Honolulu on component mount
     fetchDefaultLocation();
-  }, [21.279, 157.829]);
+  }, [latitude, longitude]);
 
     const searchAddress = async (event) => {
         if (event.key === 'Enter') {
