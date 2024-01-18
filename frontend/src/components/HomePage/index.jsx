@@ -63,8 +63,8 @@ const fetchUserLocation = () => {
     };
   
     // Default location coordinates
-    const DEFAULT_LATITUDE = 21.2793; 
-    const DEFAULT_LONGITUDE = 157.8292; 
+    const DEFAULT_LATITUDE = 21.2804; 
+    const DEFAULT_LONGITUDE = -157.8377; 
   
     // Check if geolocation is supported by the browser
     if (navigator.geolocation) {
