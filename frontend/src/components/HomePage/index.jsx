@@ -62,25 +62,31 @@ const fetchUserLocation = () => {
       setLongitude(DEFAULT_LONGITUDE.toFixed(4));
     };
   
-    // Default location coordinates
-    const DEFAULT_LATITUDE = 21.2804; 
-    const DEFAULT_LONGITUDE = -157.8377; 
-  
-    // Check if geolocation is supported by the browser
-    if (navigator.geolocation) {
-      // Attempt to get the current position
+    // Function to request location permission
+    const requestLocationPermission = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          // If successful, set the user's location
           setLatitude(position.coords.latitude.toFixed(4));
           setLongitude(position.coords.longitude.toFixed(4));
         },
         (error) => {
-          // If there's an error (e.g., user denies permission), set default location
           console.error(`Error getting location: ${error.message}`);
           setDefaultLocation();
         }
       );
+    };
+  
+    // Default location coordinates
+    const DEFAULT_LATITUDE = 40.7128; // Example latitude
+    const DEFAULT_LONGITUDE = -74.0060; // Example longitude
+  
+    // Check if geolocation is supported by the browser
+    if (navigator.geolocation) {
+      // Add a button to request location permission
+      const permissionButton = document.createElement("button");
+      permissionButton.textContent = "Allow Location Access";
+      permissionButton.addEventListener("click", requestLocationPermission);
+      document.body.appendChild(permissionButton);
     } else {
       // If geolocation is not supported, set default location
       console.error("Geolocation is not supported by this browser.");
