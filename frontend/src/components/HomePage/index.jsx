@@ -43,17 +43,52 @@ export default function HomePage(isAuthenticated, setIsAuthenticated) {
   return degreeToCardinal[closestMatch];
 }
 
-const fetchUserLocation = () => {
-// useEffect(() => {
-    // Fetch user's location using Geolocation API JavaScript
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setLatitude(position.coords.latitude.toFixed(4));
-        setLongitude(position.coords.longitude.toFixed(4));
-    });
-  }
-}; 
+// const fetchUserLocation = () => {
+// // useEffect(() => {
+//     // Fetch user's location using Geolocation API JavaScript
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition((position) => {
+//         setLatitude(position.coords.latitude.toFixed(4));
+//         setLongitude(position.coords.longitude.toFixed(4));
+//     });
+//   }
+// }; 
+// -----------------------------------------------------------------
 
+const fetchUserLocation = () => {
+    // Function to set default location
+    const setDefaultLocation = () => {
+      setLatitude(DEFAULT_LATITUDE.toFixed(4));
+      setLongitude(DEFAULT_LONGITUDE.toFixed(4));
+    };
+  
+    // Default location coordinates
+    const DEFAULT_LATITUDE = 21.2793; 
+    const DEFAULT_LONGITUDE = 157.8292; 
+  
+    // Check if geolocation is supported by the browser
+    if (navigator.geolocation) {
+      // Attempt to get the current position
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // If successful, set the user's location
+          setLatitude(position.coords.latitude.toFixed(4));
+          setLongitude(position.coords.longitude.toFixed(4));
+        },
+        (error) => {
+          // If there's an error (e.g., user denies permission), set default location
+          console.error(`Error getting location: ${error.message}`);
+          setDefaultLocation();
+        }
+      );
+    } else {
+      // If geolocation is not supported, set default location
+      console.error("Geolocation is not supported by this browser.");
+      setDefaultLocation();
+    }
+  };
+
+// -----------------------------------------------------------------
 useEffect(() => {
     // Fetch user's location using Geolocation API JavaScript
     fetchUserLocation();
