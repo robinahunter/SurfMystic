@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 // 20.8438, -156.6541
-export default function HomePage() {
+export default function HomePage(isAuthenticated, setIsAuthenticated) {
 
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
@@ -54,43 +54,50 @@ export default function HomePage() {
 // }; 
 // -----------------------------------------------------------------
 
-const fetchUserLocation = () => {
-    // Function to set default location
-    const setDefaultLocation = () => {
-      setLatitude(DEFAULT_LATITUDE.toFixed(4));
-      setLongitude(DEFAULT_LONGITUDE.toFixed(4));
-    };
+// const fetchUserLocation = () => {
+//     // Function to set default location
+//     const setDefaultLocation = () => {
+//       setLatitude(DEFAULT_LATITUDE.toFixed(4));
+//       setLongitude(DEFAULT_LONGITUDE.toFixed(4));
+//     };
   
-    // Default location coordinates
-    const DEFAULT_LATITUDE = 20.9015; 
-    const DEFAULT_LONGITUDE = -156.4821; 
+//     // Default location coordinates
+//     const DEFAULT_LATITUDE = 20.9015; 
+//     const DEFAULT_LONGITUDE = -156.4821; 
   
-    // Check if geolocation is supported by the browser
-    if (navigator.geolocation) {
-      // Attempt to get the current position
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // If successful, set the user's location
-          setLatitude(position.coords.latitude.toFixed(4));
-          setLongitude(position.coords.longitude.toFixed(4));
-        },
-        (error) => {
-          // If there's an error (e.g., user denies permission), set default location
-          console.error(`Error getting location: ${error.message}`);
-          setDefaultLocation();
-        }
-      );
-    } else {
-      // If geolocation is not supported, set default location
-      console.error("Geolocation is not supported by this browser.");
-      setDefaultLocation();
-    }
-  };
+//     // Check if geolocation is supported by the browser
+//     if (navigator.geolocation) {
+//       // Attempt to get the current position
+//       navigator.geolocation.getCurrentPosition(
+//         (position) => {
+//           // If successful, set the user's location
+//           setLatitude(position.coords.latitude.toFixed(4));
+//           setLongitude(position.coords.longitude.toFixed(4));
+//         },
+//         (error) => {
+//           // If there's an error (e.g., user denies permission), set default location
+//           console.error(`Error getting location: ${error.message}`);
+//           setDefaultLocation();
+//         }
+//       );
+//     } else {
+//       // If geolocation is not supported, set default location
+//       console.error("Geolocation is not supported by this browser.");
+//       setDefaultLocation();
+//     }
+//   };
 
-// const headers = {
-// 'User-Agent': '(auth, r@r-hunter.com)'
-// };
-// -----------------------------------------------------------------
+const fetchUserLocation = () => {
+    // useEffect(() => {
+        // Fetch user's location using Geolocation API JavaScript
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            setLatitude(position.coords.latitude.toFixed(4));
+            setLongitude(position.coords.longitude.toFixed(4));
+        });
+      }
+    }; 
+
 useEffect(() => {
     // Fetch user's location using Geolocation API JavaScript
     fetchUserLocation();
@@ -101,7 +108,7 @@ useEffect(() => {
   const fetchDefaultLocation = async () => {
       const response = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`, {
         headers: {
-            Authorization: `r@r-hunter.com, r@r-hunter.com`,
+            'User-Agent': 'auth, r@r-hunter.com',
           },
     });
       setLocationData(response.data);
@@ -111,7 +118,7 @@ useEffect(() => {
   if (forecastGridDataUrl) {
       const forecastResponse = await axios.get(forecastGridDataUrl, {
         headers: {
-            Authorization: `r@r-hunter.com, r@r-hunter.com`,
+            'User-Agent': 'auth, r@r-hunter.com',
           },
         });
       setForecastData(forecastResponse.data);
@@ -144,7 +151,7 @@ useEffect(() => {
                     // console.log(nwsResponse.length)
                     // nwsResponse.data to access weather information.
                     headers: {
-                        Authorization: `r@r-hunter.com, r@r-hunter.com`,
+                        'User-Agent': 'auth, r@r-hunter.com',
                       },
                     });
                     setLocationData(nwsResponse.data);
@@ -154,7 +161,7 @@ useEffect(() => {
                     if (forecastGridDataUrl) {
                     const forecastResponse = await axios.get(forecastGridDataUrl, {
                         headers: {
-                            Authorization: `r@r-hunter.com, r@r-hunter.com`,
+                            'User-Agent': 'auth, r@r-hunter.com',
                           },
                         });
                     setForecastData(forecastResponse.data);
