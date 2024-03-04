@@ -9,7 +9,6 @@ export default function HomePage(isAuthenticated, setIsAuthenticated) {
     const [locationData, setLocationData] = useState({})
     const [forecastData, setForecastData] = useState(null)
     const [address, setAddress] = useState('')
-    console.log(address)
     const api_key = import.meta.env.VITE_APP_API_KEY
 
     //function to find closest degree value in the degreeToCardinal object based on a given degree for wind direction. 
@@ -44,15 +43,19 @@ export default function HomePage(isAuthenticated, setIsAuthenticated) {
 }
 
 const fetchUserLocation = () => {
-useEffect(() => {
+// useEffect(() => {
     // Fetch user's location using Geolocation API JavaScript
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setLatitude(position.coords.latitude.toFixed(4));
-        setLongitude(position.coords.longitude.toFixed(4));
+        navigator.geolocation.getCurrentPosition((position) => {
+            setLatitude(position.coords.latitude.toFixed(4));
+            setLongitude(position.coords.longitude.toFixed(4));
     });
   }
-}); 
+}; 
+
+useEffect(() => {
+    fetchUserLocation();
+}, []);
 // -----------------------------------------------------------------
 
 // const fetchUserLocation = () => {
