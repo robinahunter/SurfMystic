@@ -51,7 +51,7 @@ const fetchUserLocation = () => {
             setLongitude(position.coords.longitude.toFixed(4));
     });
   }
-}; 
+// }; 
 
 useEffect(() => {
     fetchUserLocation();
