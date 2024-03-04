@@ -87,6 +87,9 @@ const fetchUserLocation = () => {
     }
   };
 
+const headers = {
+'User-Agent': '(auth, r@r-hunter.com)'
+};
 // -----------------------------------------------------------------
 useEffect(() => {
     // Fetch user's location using Geolocation API JavaScript
@@ -97,9 +100,7 @@ useEffect(() => {
    // Fetch weather data for Launiupoko Beach Park, HI on mount (preload data before user selects a location)
   const fetchDefaultLocation = async () => {
       const response = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`, {
-      headers: {
-        'User-Agent': 'auth, r@r-hunter.com',
-      },
+        headers: headers
     });
       setLocationData(response.data);
 
@@ -107,9 +108,7 @@ useEffect(() => {
   const forecastGridDataUrl = response.data.properties?.forecastGridData;
   if (forecastGridDataUrl) {
       const forecastResponse = await axios.get(forecastGridDataUrl, {
-        headers: {
-            'User-Agent': 'auth, r@r-hunter.com',
-          },
+        headers: headers
         });
       setForecastData(forecastResponse.data);
       console.log(forecastGridDataUrl)
@@ -140,9 +139,7 @@ useEffect(() => {
                     const nwsResponse = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`, {
                     // console.log(nwsResponse.length)
                     // nwsResponse.data to access weather information.
-                    headers: {
-                        'User-Agent': 'auth, r@r-hunter.com',
-                      },
+                    headers: headers
                     });
                     setLocationData(nwsResponse.data);
         
@@ -150,9 +147,7 @@ useEffect(() => {
                     const forecastGridDataUrl = nwsResponse.data.properties?.forecastGridData;
                     if (forecastGridDataUrl) {
                     const forecastResponse = await axios.get(forecastGridDataUrl, {
-                        headers: {
-                            'User-Agent': 'auth, r@r-hunter.com',
-                          },
+                        headers: headers
                         });
                     setForecastData(forecastResponse.data);
                     console.log(forecastGridDataUrl)
