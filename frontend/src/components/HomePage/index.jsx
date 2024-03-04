@@ -141,9 +141,9 @@ useEffect(() => {
                     const nwsResponse = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`, {
                     // console.log(nwsResponse.length)
                     // nwsResponse.data to access weather information.
-                    // headers: {
-                    //     'User-Agent': 'auth, r@r-hunter.com',
-                    //   },
+                    headers: {
+                        'User-Agent': 'auth, r@r-hunter.com',
+                      },
                     });
                     setLocationData(nwsResponse.data);
         
@@ -151,9 +151,9 @@ useEffect(() => {
                     const forecastGridDataUrl = nwsResponse.data.properties?.forecastGridData;
                     if (forecastGridDataUrl) {
                     const forecastResponse = await axios.get(forecastGridDataUrl, {
-                        // headers: {
-                        //     'User-Agent': 'auth, r@r-hunter.com',
-                        //   },
+                        headers: {
+                            'User-Agent': 'auth, r@r-hunter.com',
+                          },
                         });
                     setForecastData(forecastResponse.data);
                     console.log(forecastGridDataUrl)
