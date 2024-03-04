@@ -63,8 +63,8 @@ const fetchUserLocation = () => {
     };
   
     // Default location coordinates
-    const DEFAULT_LATITUDE = 21.2804; 
-    const DEFAULT_LONGITUDE = -157.8377; 
+    const DEFAULT_LATITUDE = 20.5000; 
+    const DEFAULT_LONGITUDE = -156.3848; 
   
     // Check if geolocation is supported by the browser
     if (navigator.geolocation) {
@@ -95,7 +95,7 @@ useEffect(() => {
 }, []); 
 
 useEffect(() => {
-   // Fetch weather data for Honolulu, HI on mount (preload data before user selects a location)
+   // Fetch weather data for Launiupoko Beach Park, HI on mount (preload data before user selects a location)
   const fetchDefaultLocation = async () => {
       const response = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`, {
       headers: {
