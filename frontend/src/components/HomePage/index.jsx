@@ -43,28 +43,28 @@ export default function HomePage(isAuthenticated, setIsAuthenticated) {
   return degreeToCardinal[closestMatch];
 }
 
-// const fetchUserLocation = () => {
-// // useEffect(() => {
-//     // Fetch user's location using Geolocation API JavaScript
-//     if (navigator.geolocation) {
-//       navigator.geolocation.getCurrentPosition((position) => {
-//         setLatitude(position.coords.latitude.toFixed(4));
-//         setLongitude(position.coords.longitude.toFixed(4));
-//     });
-//   }
-// }; 
+const fetchUserLocation = () => {
+// useEffect(() => {
+    // Fetch user's location using Geolocation API JavaScript
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLatitude(position.coords.latitude.toFixed(4));
+        setLongitude(position.coords.longitude.toFixed(4));
+    });
+  }
+}; 
 // -----------------------------------------------------------------
 
-const fetchUserLocation = () => {
-    // Function to set default location
-    const setDefaultLocation = () => {
-      setLatitude(DEFAULT_LATITUDE.toFixed(4));
-      setLongitude(DEFAULT_LONGITUDE.toFixed(4));
-    };
+// const fetchUserLocation = () => {
+//     // Function to set default location
+//     const setDefaultLocation = () => {
+//       setLatitude(DEFAULT_LATITUDE.toFixed(4));
+//       setLongitude(DEFAULT_LONGITUDE.toFixed(4));
+//     };
   
-    // Default location coordinates
-    const DEFAULT_LATITUDE = 20.9015; 
-    const DEFAULT_LONGITUDE = -156.4821; 
+//     // Default location coordinates
+//     const DEFAULT_LATITUDE = 20.9015; 
+//     const DEFAULT_LONGITUDE = -156.4821; 
   
     // Check if geolocation is supported by the browser
     if (navigator.geolocation) {
@@ -141,9 +141,9 @@ useEffect(() => {
                     const nwsResponse = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`, {
                     // console.log(nwsResponse.length)
                     // nwsResponse.data to access weather information.
-                    headers: {
-                        'User-Agent': 'auth, r@r-hunter.com',
-                      },
+                    // headers: {
+                    //     'User-Agent': 'auth, r@r-hunter.com',
+                    //   },
                     });
                     setLocationData(nwsResponse.data);
         
@@ -151,9 +151,9 @@ useEffect(() => {
                     const forecastGridDataUrl = nwsResponse.data.properties?.forecastGridData;
                     if (forecastGridDataUrl) {
                     const forecastResponse = await axios.get(forecastGridDataUrl, {
-                        headers: {
-                            'User-Agent': 'auth, r@r-hunter.com',
-                          },
+                        // headers: {
+                        //     'User-Agent': 'auth, r@r-hunter.com',
+                        //   },
                         });
                     setForecastData(forecastResponse.data);
                     console.log(forecastGridDataUrl)
