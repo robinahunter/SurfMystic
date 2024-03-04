@@ -9,6 +9,7 @@ export default function HomePage(isAuthenticated, setIsAuthenticated) {
     const [locationData, setLocationData] = useState({})
     const [forecastData, setForecastData] = useState(null)
     const [address, setAddress] = useState('')
+    console.log(address)
     const api_key = import.meta.env.VITE_APP_API_KEY
 
     //function to find closest degree value in the degreeToCardinal object based on a given degree for wind direction. 
@@ -43,73 +44,63 @@ export default function HomePage(isAuthenticated, setIsAuthenticated) {
 }
 
 // const fetchUserLocation = () => {
-// useEffect(() => {
+// // useEffect(() => {
 //     // Fetch user's location using Geolocation API JavaScript
 //     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition((position) => {
-//             setLatitude(position.coords.latitude.toFixed(4));
-//             setLongitude(position.coords.longitude.toFixed(4));
+//       navigator.geolocation.getCurrentPosition((position) => {
+//         setLatitude(position.coords.latitude.toFixed(4));
+//         setLongitude(position.coords.longitude.toFixed(4));
 //     });
 //   }
 // }; 
 // -----------------------------------------------------------------
 
-// const fetchUserLocation = () => {
-//     // Function to set default location
-//     const setDefaultLocation = () => {
-//       setLatitude(DEFAULT_LATITUDE.toFixed(4));
-//       setLongitude(DEFAULT_LONGITUDE.toFixed(4));
-//     };
-  
-//     // Default location coordinates
-//     const DEFAULT_LATITUDE = 20.9015; 
-//     const DEFAULT_LONGITUDE = -156.4821; 
-  
-//     // Check if geolocation is supported by the browser
-//     if (navigator.geolocation) {
-//       // Attempt to get the current position
-//       navigator.geolocation.getCurrentPosition(
-//         (position) => {
-//           // If successful, set the user's location
-//           setLatitude(position.coords.latitude.toFixed(4));
-//           setLongitude(position.coords.longitude.toFixed(4));
-//         },
-//         (error) => {
-//           // If there's an error (e.g., user denies permission), set default location
-//           console.error(`Error getting location: ${error.message}`);
-//           setDefaultLocation();
-//         }
-//       );
-//     } else {
-//       // If geolocation is not supported, set default location
-//       console.error("Geolocation is not supported by this browser.");
-//       setDefaultLocation();
-//     }
-//   };
-
 const fetchUserLocation = () => {
-    // useEffect(() => {
-        // Fetch user's location using Geolocation API JavaScript
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            setLatitude(position.coords.latitude.toFixed(4));
-            setLongitude(position.coords.longitude.toFixed(4));
-        });
-      }
-    }; 
+    // Function to set default location
+    const setDefaultLocation = () => {
+      setLatitude(DEFAULT_LATITUDE.toFixed(4));
+      setLongitude(DEFAULT_LONGITUDE.toFixed(4));
+    };
+  
+    // Default location coordinates
+    const DEFAULT_LATITUDE = 21.2804; 
+    const DEFAULT_LONGITUDE = -157.8377; 
+  
+    // Check if geolocation is supported by the browser
+    if (navigator.geolocation) {
+      // Attempt to get the current position
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // If successful, set the user's location
+          setLatitude(position.coords.latitude.toFixed(4));
+          setLongitude(position.coords.longitude.toFixed(4));
+        },
+        (error) => {
+          // If there's an error (e.g., user denies permission), set default location
+          console.error(`Error getting location: ${error.message}`);
+          setDefaultLocation();
+        }
+      );
+    } else {
+      // If geolocation is not supported, set default location
+      console.error("Geolocation is not supported by this browser.");
+      setDefaultLocation();
+    }
+  };
 
+// -----------------------------------------------------------------
 useEffect(() => {
     // Fetch user's location using Geolocation API JavaScript
     fetchUserLocation();
 }, []); 
 
 useEffect(() => {
-   // Fetch weather data for Launiupoko Beach Park, HI on mount (preload data before user selects a location)
+   // Fetch weather data for Honolulu, HI on mount (preload data before user selects a location)
   const fetchDefaultLocation = async () => {
       const response = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`, {
-        headers: {
-            'User-Agent': 'auth, r@r-hunter.com',
-          },
+      headers: {
+        'User-Agent': 'auth, r@r-hunter.com',
+      },
     });
       setLocationData(response.data);
 
@@ -142,7 +133,7 @@ useEffect(() => {
                     console.log(latitude)
                     console.log(longitude)
                     console.log(location) 
-                    console.log("Address:", address);
+                    console.log("Address:"(address))
                       
 
                 //Pull lat long variables into NWS Api to pull initial weather for address entered by user
@@ -389,4 +380,3 @@ useEffect(() => {
         </>
     )
 }
-
