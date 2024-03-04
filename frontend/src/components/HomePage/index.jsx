@@ -44,7 +44,7 @@ export default function HomePage(isAuthenticated, setIsAuthenticated) {
 }
 
 const fetchUserLocation = () => {
-// useEffect(() => {
+useEffect(() => {
     // Fetch user's location using Geolocation API JavaScript
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -52,7 +52,7 @@ const fetchUserLocation = () => {
         setLongitude(position.coords.longitude.toFixed(4));
     });
   }
-}; 
+}); 
 // -----------------------------------------------------------------
 
 // const fetchUserLocation = () => {
