@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 // 20.8438, -156.6541
-export default function HomePage(isAuthenticated, setIsAuthenticated) {
+export default function HomePage() {
 
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
@@ -132,7 +132,7 @@ useEffect(() => {
                     console.log(latitude)
                     console.log(longitude)
                     console.log(location) 
-                    console.log("Address:"(address))
+                    console.log("Address:", address);
                       
 
                 //Pull lat long variables into NWS Api to pull initial weather for address entered by user
