@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-// 20.8438, -156.6541
+// 20.8956, -156.4791
 export default function HomePage(isAuthenticated, setIsAuthenticated) {
 
     const [latitude, setLatitude] = useState('')
@@ -63,8 +63,8 @@ const fetchUserLocation = () => {
     };
   
     // Default location coordinates
-    const DEFAULT_LATITUDE = 20.5000; 
-    const DEFAULT_LONGITUDE = -156.3848; 
+    const DEFAULT_LATITUDE = 20.8956; 
+    const DEFAULT_LONGITUDE = -156.4791; 
   
     // Check if geolocation is supported by the browser
     if (navigator.geolocation) {
